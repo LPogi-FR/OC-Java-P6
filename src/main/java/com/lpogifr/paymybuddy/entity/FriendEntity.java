@@ -10,11 +10,14 @@ import lombok.*;
 @Table(name = "friend")
 public class FriendEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private long id;
+  @ManyToOne
+  @JoinColumn(name = "user_id", referencedColumnName = "id")
+  private UserEntity friend;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   private UserEntity user;
+
+  @EmbeddedId
+  private FriendPrimaryKey id;
 }

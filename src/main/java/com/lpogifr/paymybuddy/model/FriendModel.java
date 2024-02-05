@@ -10,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 public class FriendModel {
 
-  private long id;
-  //private UserEntity user;
+  private long friendId;
+
+  private UserEntity user;
 }

@@ -18,5 +18,5 @@ public class UserModel {
 
   private BankAccountModel bankAccount;
 
-  private List<FriendModel> friendList;
+  private List<UserModel> friendList;
 }
