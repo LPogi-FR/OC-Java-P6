@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BankAccountRepository extends JpaRepository<BankAccountEntity, Long> {
   List<BankAccountEntity> findAll();
+
+  BankAccountEntity save(BankAccountEntity entity);
 }

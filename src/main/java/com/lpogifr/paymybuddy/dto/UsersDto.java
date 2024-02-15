@@ -15,9 +15,8 @@ public class UsersDto {
   //private long id;
 
   private String email;
-  //private String password;
+  private String password;
 
-  //private BankAccountModel bankAccount;
-
+  private BankAccountModel bankAccount;
   //private List<FriendModel> friendList;
 }

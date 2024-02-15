@@ -6,13 +6,15 @@ import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class UserEntity {
 
   @Id
-  @Column(name = "id")
+  @Column(name = "id", insertable = false, updatable = false)
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
 
@@ -27,5 +29,5 @@ public class UserEntity {
   private BankAccountEntity bankAccount;
 
   @OneToMany(mappedBy = "friend", fetch = FetchType.LAZY)
-  private List<UserEntity> friendList;
+  private List<FriendEntity> friendList;
 }

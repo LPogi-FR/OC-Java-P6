@@ -30,17 +30,16 @@ public class Assembler {
       .id(userEntity.getId())
       .email(userEntity.getEmail())
       .bankAccount(bankAccountEntityToModel(userEntity.getBankAccount()))
-      .friendList(userEntityToModel(userEntity.getFriendList()))
+      //.friendList(friendEntityToModel(userEntity.getFriendList()))
       .build();
   }
 
-  /*
-
-  public List<FriendModel> friendEntityToModel(List<FriendEntity> friendEntityList) {
+  /*public List<FriendModel> friendEntityToModel(List<FriendEntity> friendEntityList) {
     return friendEntityList.stream().map(this::friendEntityToModel).toList();
   }
-  private FriendModel friendEntityToModel(FriendEntity friendEntity) {
-    return FriendModel.builder().id(friendEntity.getId()).build();
+
+  /*private FriendModel friendEntityToModel(FriendEntity friendEntity) {
+    return FriendModel.builder().friend(friendEntity.getFriend()).user(friendEntity.getUser()).build();
   }*/
 
   public List<BankAccountModel> bankAccountEntityToModel(List<BankAccountEntity> bankAccountEntityList) {

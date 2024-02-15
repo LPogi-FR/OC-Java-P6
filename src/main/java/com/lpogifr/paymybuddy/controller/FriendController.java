@@ -2,6 +2,7 @@ package com.lpogifr.paymybuddy.controller;
 
 import com.lpogifr.paymybuddy.assembler.Assembler;
 import com.lpogifr.paymybuddy.model.FriendModel;
+import com.lpogifr.paymybuddy.model.UserModel;
 import com.lpogifr.paymybuddy.service.FriendService;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -20,8 +21,8 @@ public class FriendController {
   private final FriendService friendService;
 
   @GetMapping("/friend")
-  public ResponseEntity<List<FriendModel>> findAllFriend() {
-    List<FriendModel> response = assembler.friendEntityToModel(friendService.findAll());
+  public ResponseEntity<List<UserModel>> findAllFriend() {
+    List<UserModel> response = assembler.userEntityToModel(friendService.findAll());
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 }

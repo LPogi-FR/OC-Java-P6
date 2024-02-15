@@ -25,7 +25,7 @@ public class TransactionsEntity {
 
   @OneToOne
   @JoinColumn(name = "friend_id", referencedColumnName = "id")
-  private FriendEntity friend;
+  private UserEntity friend;
 
   private double amount;
 
