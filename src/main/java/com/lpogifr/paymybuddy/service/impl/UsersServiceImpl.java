@@ -2,7 +2,6 @@ package com.lpogifr.paymybuddy.service.impl;
 
 import com.lpogifr.paymybuddy.assembler.BankAccountAssembler;
 import com.lpogifr.paymybuddy.assembler.UserAssembler;
-import com.lpogifr.paymybuddy.dto.UsersDto;
 import com.lpogifr.paymybuddy.entity.BankAccountEntity;
 import com.lpogifr.paymybuddy.entity.UserEntity;
 import com.lpogifr.paymybuddy.model.UserModel;
@@ -32,31 +31,31 @@ public class UsersServiceImpl implements UsersService {
 
   @Override
   public List<UserModel> findAll() {
-    return this.assembler.fromEntityListToModelList(this.repository.findAll());
+    return this.assembler.fromEntityListToModelList(repository.findAll());
   }
 
   @Override
   public UserModel findByEmail(String email) {
-    UserEntity entity = this.repository.findByEmail(email);
-    return this.assembler.fromEntityToModel(entity);
+    UserEntity entity = repository.findByEmail(email);
+    return assembler.fromEntityToModel(entity);
   }
 
   @Override
   public UserModel findById(Long id) {
-    Optional<UserEntity> entityOptional = this.repository.findById(id);
+    Optional<UserEntity> entityOptional = repository.findById(id);
     return entityOptional.map(assembler::fromEntityToModel).orElse(null);
   }
 
   @Override
   public UserModel save(UserModel newUser) {
-    UserEntity entityToSave = this.assembler.fromModelToEntity(newUser);
-    BankAccountEntity bankAccountEntity = this.bankAccountRepository.save(this.createBankAccount(entityToSave));
+    UserEntity entityToSave = assembler.fromModelToEntity(newUser);
+    BankAccountEntity bankAccountEntity = bankAccountRepository.save(createBankAccount(entityToSave));
     entityToSave.setBankAccount(bankAccountEntity);
     UserEntity savedUserEntity = repository.save(entityToSave);
     bankAccountEntity.setUsers(savedUserEntity);
-    bankAccountEntity = this.bankAccountRepository.save(bankAccountEntity);
-    UserModel saved = this.assembler.fromEntityToModel(savedUserEntity);
-    saved.setBankAccount(this.bankAccountAssembler.fromEntityToModel(bankAccountEntity));
+    bankAccountEntity = bankAccountRepository.save(bankAccountEntity);
+    UserModel saved = assembler.fromEntityToModel(savedUserEntity);
+    saved.setBankAccount(bankAccountAssembler.fromEntityToModel(bankAccountEntity));
     return saved;
   }
 
@@ -77,7 +76,17 @@ public class UsersServiceImpl implements UsersService {
   }
 
   public UserModel update(UserModel updatedUser) {
-    UserEntity entityToSave = this.assembler.fromModelToEntity(updatedUser);
-    return this.assembler.fromEntityToModel(repository.save(entityToSave));
+    return assembler.fromEntityToModel(repository.save(assembler.fromModelToEntity(updatedUser)));
+  }
+
+  @Override
+  public UserModel addFriend(Long id, String email) {
+    Optional<UserEntity> userEntityOptional = repository.findById(id);
+    UserEntity newFriend = repository.findByEmail(email);
+    userEntityOptional.ifPresent(userFound -> {
+      userFound.setFriendList(userFound.getFriendList().add(newFriend));
+    });
+
+    return null;
   }
 }

@@ -1,10 +1,7 @@
 package com.lpogifr.paymybuddy.service;
 
-import com.lpogifr.paymybuddy.dto.UsersDto;
-import com.lpogifr.paymybuddy.entity.UserEntity;
 import com.lpogifr.paymybuddy.model.UserModel;
 import java.util.List;
-import java.util.Optional;
 
 public interface UsersService {
   /**
@@ -21,4 +18,6 @@ public interface UsersService {
   void delete(String email);
 
   UserModel update(UserModel updatedUser);
+
+  UserModel addFriend(Long id, String email);
 }

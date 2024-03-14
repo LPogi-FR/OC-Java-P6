@@ -15,7 +15,7 @@ public class UserEntity {
 
   @Id
   @Column(name = "id", insertable = false, updatable = false)
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
   @Column(name = "email")
@@ -30,4 +30,6 @@ public class UserEntity {
 
   @OneToMany(mappedBy = "friend", fetch = FetchType.LAZY)
   private List<FriendEntity> friendList;
+
+  private Boolean isActiveAccount = true;
 }

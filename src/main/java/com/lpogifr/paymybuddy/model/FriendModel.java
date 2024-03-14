@@ -13,4 +13,6 @@ public class FriendModel {
   private UserModel friend;
 
   private UserModel user;
+
+  private FriendPrimaryKey id;
 }
