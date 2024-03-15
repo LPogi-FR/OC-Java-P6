@@ -3,6 +3,7 @@ package com.lpogifr.paymybuddy.service.impl;
 import com.lpogifr.paymybuddy.assembler.BankAccountAssembler;
 import com.lpogifr.paymybuddy.assembler.UserAssembler;
 import com.lpogifr.paymybuddy.entity.BankAccountEntity;
+import com.lpogifr.paymybuddy.entity.FriendEntity;
 import com.lpogifr.paymybuddy.entity.UserEntity;
 import com.lpogifr.paymybuddy.model.UserModel;
 import com.lpogifr.paymybuddy.repository.BankAccountRepository;
@@ -80,13 +81,19 @@ public class UsersServiceImpl implements UsersService {
   }
 
   @Override
-  public UserModel addFriend(Long id, String email) {
-    Optional<UserEntity> userEntityOptional = repository.findById(id);
-    UserEntity newFriend = repository.findByEmail(email);
-    userEntityOptional.ifPresent(userFound -> {
-      userFound.setFriendList(userFound.getFriendList().add(newFriend));
-    });
+  public UserModel addFriend(Long id, Long friendId) {
+    UserEntity response = null;
+    UserEntity userEntity = repository.findById(id).orElse(null);
+    UserEntity newFriend = repository.findById(friendId).orElse(null);
+    if (userEntity != null) {
+      final var newFriendEntity = new FriendEntity().builder().user(userEntity).friend(newFriend).build();
+      List<FriendEntity> friendEntityList = userEntity.getFriendList();
+      friendEntityList.forEach(friendEntity -> friendEntity.setUser(userEntity));
+      friendEntityList.add(newFriendEntity);
+      userEntity.setFriendList(friendEntityList);
+      response = repository.save(userEntity);
+    }
 
-    return null;
+    return assembler.fromEntityToModel(response);
   }
 }

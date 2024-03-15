@@ -19,7 +19,14 @@ public class UserAssembler implements IAssembler<UserEntity, UserModel> {
     if (model == null) {
       return null;
     }
-    return UserEntity.builder().id(model.getId()).email(model.getEmail()).password(model.getPassword()).build();
+    return UserEntity
+      .builder()
+      .id(model.getId())
+      .email(model.getEmail())
+      .password(model.getPassword())
+      .friendList(friendAssembler.fromModelListToEntityList(model.getFriendList()))
+      .bankAccount(bankAccountAssembler.fromModelToEntity(model.getBankAccount()))
+      .build();
   }
 
   @Override
