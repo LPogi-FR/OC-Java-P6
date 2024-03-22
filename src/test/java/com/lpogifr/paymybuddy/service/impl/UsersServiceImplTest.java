@@ -23,4 +23,22 @@ class UsersServiceImplTest {
     assertEquals("ouioui@email.com", all.get(0).getEmail());
     assertEquals("nonnon@email.com", all.get(1).getEmail());
   }
+
+  @Test
+  void itShouldFindByEmail() {}
+
+  @Test
+  void itShouldFindById() {}
+
+  @Test
+  void itShouldSave() {}
+
+  @Test
+  void itShouldDelete() {}
+
+  @Test
+  void itShouldUpdate() {}
+
+  @Test
+  void itShouldAddFriend() {}
 }
