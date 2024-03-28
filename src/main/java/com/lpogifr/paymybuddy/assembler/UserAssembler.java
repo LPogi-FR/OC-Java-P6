@@ -19,7 +19,14 @@ public class UserAssembler implements IAssembler<UserEntity, UserModel> {
     if (model == null) {
       return null;
     }
-    return UserEntity.builder().id(model.getId()).email(model.getEmail()).password(model.getPassword()).build();
+    return UserEntity
+      .builder()
+      .id(model.getId())
+      .email(model.getEmail())
+      .password(model.getPassword())
+      //.bankAccount(bankAccountAssembler.fromModelToEntity(model.getBankAccount()))
+      //.friendList(friendAssembler.fromModelListToEntityList(model.getFriendList()))
+      .build();
   }
 
   @Override
@@ -30,8 +37,8 @@ public class UserAssembler implements IAssembler<UserEntity, UserModel> {
     return UserModel
       .builder()
       .id(entity.getId())
-      .bankAccount(bankAccountAssembler.fromEntityToModel(entity.getBankAccount()))
-      .friendList(friendAssembler.fromEntityListToModelList(entity.getFriendList()))
+      // .bankAccount(bankAccountAssembler.fromEntityToModel(entity.getBankAccount()))
+      //.friendList(friendAssembler.fromEntityListToModelList(entity.getFriendList()))
       .email(entity.getEmail())
       .password(entity.getPassword())
       .build();

@@ -84,7 +84,8 @@ public class UsersServiceImpl implements UsersService {
     Optional<UserEntity> userEntityOptional = repository.findById(id);
     UserEntity newFriend = repository.findByEmail(email);
     userEntityOptional.ifPresent(userFound -> {
-      userFound.setFriendList(userFound.getFriendList().add(newFriend));
+      System.out.println("oui");
+      //userFound.setFriendList(userFound.getFriendList().add(newFriend));
     });
 
     return null;

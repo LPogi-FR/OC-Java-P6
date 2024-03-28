@@ -11,6 +11,9 @@ public class BankAccountAssembler implements IAssembler<BankAccountEntity, BankA
 
   @Override
   public BankAccountEntity fromModelToEntity(BankAccountModel model) {
+    if (model == null) {
+      return null;
+    }
     return BankAccountEntity
       .builder()
       .id(model.getId())
@@ -22,6 +25,9 @@ public class BankAccountAssembler implements IAssembler<BankAccountEntity, BankA
 
   @Override
   public BankAccountModel fromEntityToModel(BankAccountEntity entity) {
+    if (entity == null) {
+      return null;
+    }
     return BankAccountModel
       .builder()
       .id(entity.getId())

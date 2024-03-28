@@ -13,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
 @ExtendWith(MockitoExtension.class)
 class BankAccountServiceImplTest {
@@ -53,12 +52,22 @@ class BankAccountServiceImplTest {
 
   @Test
   void itShouldUpdate() {
-    //assertDoesNotThrow();
+    // Add a bankAccount in DB
+    assertDoesNotThrow(() -> service.update(1L, BankAccountModel.builder().build()));
+    verify(repository).save(any());
   }
 
   @Test
-  void itShouldSendMoney() {}
+  void itShouldSendMoney() {
+    //Need DB
+    assertDoesNotThrow(() -> service.sendMoney(BankAccountModel.builder().balance(300D).build(), 200));
+    //verify(service).update(anyLong(), any());
+  }
 
   @Test
-  void itShouldReceivceMoney() {}
+  void itShouldReceivceMoney() {
+    //Need DB
+    assertDoesNotThrow(() -> service.receivceMoney(BankAccountModel.builder().balance(300D).build(), 200));
+    //verify(service).update(anyLong(), any());
+  }
 }

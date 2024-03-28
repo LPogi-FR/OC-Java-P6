@@ -15,6 +15,7 @@ public class FriendAssembler implements IAssembler<FriendEntity, UserModel> {
     if (model == null) {
       return null;
     }
+    return null;
     //return FriendEntity.builder().id(model.getId()).build();
   }
 
