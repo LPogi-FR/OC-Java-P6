@@ -3,9 +3,12 @@ package com.lpogifr.paymybuddy.service.impl;
 import com.lpogifr.paymybuddy.assembler.BankAccountAssembler;
 import com.lpogifr.paymybuddy.assembler.UserAssembler;
 import com.lpogifr.paymybuddy.entity.BankAccountEntity;
+import com.lpogifr.paymybuddy.entity.FriendEntity;
+import com.lpogifr.paymybuddy.entity.FriendPrimaryKey;
 import com.lpogifr.paymybuddy.entity.UserEntity;
 import com.lpogifr.paymybuddy.model.UserModel;
 import com.lpogifr.paymybuddy.repository.BankAccountRepository;
+import com.lpogifr.paymybuddy.repository.FriendRepository;
 import com.lpogifr.paymybuddy.repository.UsersRepository;
 import com.lpogifr.paymybuddy.service.UsersService;
 import java.util.List;
@@ -24,6 +27,8 @@ public class UsersServiceImpl implements UsersService {
   private final UsersRepository repository;
 
   private final BankAccountRepository bankAccountRepository;
+
+  private final FriendRepository friendRepository;
 
   private final UserAssembler assembler;
 
@@ -80,14 +85,22 @@ public class UsersServiceImpl implements UsersService {
   }
 
   @Override
-  public UserModel addFriend(Long id, String email) {
-    Optional<UserEntity> userEntityOptional = repository.findById(id);
-    UserEntity newFriend = repository.findByEmail(email);
-    userEntityOptional.ifPresent(userFound -> {
-      System.out.println("oui");
-      //userFound.setFriendList(userFound.getFriendList().add(newFriend));
-    });
-
-    return null;
+  public UserModel addFriend(Long id, Long friendId) {
+    Optional<UserEntity> response = null;
+    UserEntity userEntity = repository.findById(id).orElse(null);
+    UserEntity newFriend = repository.findById(friendId).orElse(null);
+    if (userEntity != null) {
+      final var newFriendEntity = new FriendEntity()
+        .builder()
+        .id(FriendPrimaryKey.builder().userId(userEntity.getId()).friendId(newFriend.getId()).build())
+        .user(userEntity)
+        .friend(newFriend)
+        .build();
+      List<FriendEntity> friendEntityList = userEntity.getFriendList();
+      friendRepository.save(newFriendEntity);
+      //userEntity.setFriendList(friendEntityList);
+      response = repository.findById(id);
+    }
+    return assembler.fromEntityToModel(response.orElse(null));
   }
 }

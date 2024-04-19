@@ -1,0 +1,36 @@
+h2 {
+    font-family: sans-serif;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    font-color :  yellow ;
+}
+
+strong {
+    font-weight: 800;
+    background-color: yellow;
+}
+
+p {
+    font-family: sans-serif;
+    margin:10pt;
+}
+
+
+form.form-sendMoney {
+  display: table;
+}
+
+div.form-sendMoney {
+  display: table-row;
+}
+
+label,
+input {
+  display: table-cell;
+  margin-bottom: 10px;
+}
+
+label {
+  padding-right: 10px;
+}
+

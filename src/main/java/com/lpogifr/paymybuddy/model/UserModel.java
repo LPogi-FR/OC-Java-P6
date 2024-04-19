@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 public class UserModel {
 
-  private long id;
+  private Long id;
 
   private String email;
 

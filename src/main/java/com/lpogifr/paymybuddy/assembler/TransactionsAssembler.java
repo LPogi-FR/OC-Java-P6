@@ -3,10 +3,12 @@ package com.lpogifr.paymybuddy.assembler;
 import com.lpogifr.paymybuddy.entity.TransactionsEntity;
 import com.lpogifr.paymybuddy.model.TransactionsModel;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 @Component
+@AllArgsConstructor
 public class TransactionsAssembler implements IAssembler<TransactionsEntity, TransactionsModel> {
 
   private UserAssembler userAssembler;
@@ -18,8 +20,9 @@ public class TransactionsAssembler implements IAssembler<TransactionsEntity, Tra
     }
     return TransactionsEntity
       .builder()
-      .user(userAssembler.fromModelToEntity(model.getUser()))
-      .friend(userAssembler.fromModelToEntity(model.getFriend()))
+      .id(model.getId())
+      .user((userAssembler.fromModelToEntity(model.getUser())))
+      .friend((userAssembler.fromModelToEntity(model.getFriend())))
       .amount(model.getAmount())
       .execTime(model.getExecTime())
       .build();
@@ -32,6 +35,7 @@ public class TransactionsAssembler implements IAssembler<TransactionsEntity, Tra
     }
     return TransactionsModel
       .builder()
+      .id(entity.getId())
       .user(userAssembler.fromEntityToModel(entity.getUser()))
       .friend(userAssembler.fromEntityToModel(entity.getFriend()))
       .amount(entity.getAmount())
