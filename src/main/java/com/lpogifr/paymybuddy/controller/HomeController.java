@@ -21,4 +21,19 @@ public class HomeController {
   public String transfert(Model model) {
     return "transfert";
   }
+
+  @GetMapping("/home")
+  public String home(Model model) {
+    return "home";
+  }
+
+  @GetMapping("/contact")
+  public String contact(Model model) {
+    return "contact";
+  }
+
+  @GetMapping("/logoff")
+  public String logoff(Model model) {
+    return "logoff";
+  }
 }

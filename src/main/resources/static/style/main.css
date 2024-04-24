@@ -7,7 +7,7 @@ h2 {
 
 strong {
     font-weight: 800;
-    background-color: yellow;
+    background-color: #ffe600;
 }
 
 p {
@@ -17,20 +17,43 @@ p {
 
 
 form.form-sendMoney {
-  display: table;
+    display: table;
 }
 
 div.form-sendMoney {
-  display: table-row;
+    display: table-row;
 }
 
 label,
 input {
-  display: table-cell;
-  margin-bottom: 10px;
+    display: table-cell;
+    margin-bottom: 10px;
 }
 
 label {
-  padding-right: 10px;
+    padding-right: 10px;
 }
+
+#navigation {
+    height: 70pt;
+    background-color : #04bd23;
+    margin: 40 ;
+    padding: 10pt ;
+    list-style: none ;
+    text-align: right ;
+}
+#navigation li {
+    display: inline;
+}
+#navigation li a {
+    padding: 10px 20px ;
+    background: #78d508 ;
+    color: #000000 ;
+    border: 1pt solid #ffffff ;
+    font: 1em "Trebuchet MS",Arial,sans-serif ;
+    line-height: 1px ;
+    text-align: center ;
+}
+
+
 
