@@ -34,11 +34,23 @@ label {
     padding-right: 10px;
 }
 
+div.top-nav {
+    width: 120px;
+
+}
+div.top-nav a{
+    padding: 5%;
+    background: #86c04b ;
+    color: #ececed ;
+    font: 1em "Trebuchet MS",Arial,sans-serif ;
+    border-radius: 15px;
+}
+
 #navigation {
-    height: 70pt;
-    background-color : #04bd23;
+    height: 35pt;
+    background-color : #909090;
     margin: 40 ;
-    padding: 10pt ;
+    padding: 9pt ;
     list-style: none ;
     text-align: right ;
 }
@@ -46,14 +58,22 @@ label {
     display: inline;
 }
 #navigation li a {
-    padding: 10px 20px ;
-    background: #78d508 ;
+    padding: 5px 10px ;
+    background: #c8c8c8 ;
     color: #000000 ;
-    border: 1pt solid #ffffff ;
+    border: 0.5pt solid #ffffff ;
     font: 1em "Trebuchet MS",Arial,sans-serif ;
     line-height: 1px ;
     text-align: center ;
 }
+nav.main-nav {
+    background-color: #414142;
+    text-align: center;
+    color: #ececed;
+    border-radius: 10px;
+}
+
+
 
 
 

@@ -1,14 +1,31 @@
 package com.lpogifr.paymybuddy.controller;
 
+import com.lpogifr.paymybuddy.front.form.TransactionForm;
+import com.lpogifr.paymybuddy.model.UserModel;
+import com.lpogifr.paymybuddy.service.UsersService;
+import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class HomeController {
 
+  private final UsersService service;
+  private UserModel userModel;
+
+  @PostConstruct
+  public void init() {
+    userModel = service.findById(1L);
+  }
+
   @GetMapping("/index")
-  public String index(Model model) {
+  public String index(Model model, HttpSession session) {
+    session.setAttribute("User", userModel);
     return "index";
   }
 
@@ -19,21 +36,28 @@ public class HomeController {
 
   @GetMapping("/transfert")
   public String transfert(Model model) {
-    return "transfert";
+    TransactionForm transactionForm = new TransactionForm();
+    model.addAttribute("transactionForm", transactionForm);
+    return "menu/transfert";
   }
 
   @GetMapping("/home")
   public String home(Model model) {
-    return "home";
+    return "menu/home";
   }
 
   @GetMapping("/contact")
   public String contact(Model model) {
-    return "contact";
+    return "menu/contact";
+  }
+
+  @GetMapping("/profile")
+  public String profile(Model model) {
+    return "menu/profile";
   }
 
   @GetMapping("/logoff")
   public String logoff(Model model) {
-    return "logoff";
+    return "menu/logoff";
   }
 }
