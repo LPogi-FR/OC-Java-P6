@@ -29,18 +29,26 @@
 
 
 </div>
+<div align="center">
+    <div class="form">
+        <h1>Transfert money form</h1>
+        <form method="post" th:action="@{/transfert/}" th:object="${transactionForm}">
+            <label>Transfert description :</label>
+            <input id="description" PLACEHOLDER="Enter description" required type="text" th:field="*{description}"/>
+            <br>
+            <label>Amount to send :</label>
+            <input id="amount" PLACEHOLDER="Enter Amount" required type="number" th:field="*{amount}"/>
+            <br>
+            <input id="userID" type="hidden" value="${session.user.id}" th:field="*{userId}"/>
+            <label>Select friend :</label>
+            <input id="friendID" PLACEHOLDER="Select friend" required type="number" th:field="*{friendId}"/>
+            <br>
+            <input type="submit" value="Transfert money">
+        </form>
+    </div>
+</div>
 
 
-<form method="post" th:action="@{/transfert/}" th:object="${transactionForm}">
-
-    <input id="description" PLACEHOLDER="Enter description" required type="text" th:field="*{description}" />
-    <input id="amount" PLACEHOLDER="Enter Amount" required type="number" th:field="*{amount}" />
-    <input id="userID" type="hidden" value="${session.user.id}" th:field="*{userId}" />
-    <input id="friendID" PLACEHOLDER="Select friend" required type="number" th:field="*{friendId}" />
-    <input type="submit" value="Send money">
-
-
-</form>
 <!--div class="form-group">
     <label for="role">Role</label>
     <select id="role" required th:field="*{role}" class="form-control ">

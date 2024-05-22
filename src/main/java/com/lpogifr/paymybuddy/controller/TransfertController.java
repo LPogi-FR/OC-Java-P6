@@ -46,6 +46,7 @@ public class TransfertController {
       .friend(friendModel)
       .execTime(LocalDateTime.now())
       .amount(transactionForm.getAmount())
+      .description(transactionForm.getDescription())
       .build();
     transactionsService.save(response);
     return "redirect:/index";

@@ -8,11 +8,15 @@
 </head>
 <body>
 
-<H1>  Home</H1>
+<H1> Home</H1>
 
 <div>
     <nav class="main-nav" aria-label="Main menu">
+        PAY MY BUDDY
         <ul id="navigation">
+
+            <div class="top-nav"><a class="nav-link" href="index">Pay My Buddy</a></div>
+
             <li class="nav-item"><a class="nav-link" href="home">Home</a>
             <li class="nav-item"><a class="nav-link" href="transfert">Transfer</a>
             <li class="nav-item"><a class="nav-link" href="profile">Profile</a>
@@ -25,7 +29,23 @@
 
 
 </div>
+        <p> Balance</p>
+        <p th:text="${bankAccount.balance}"></p>
+    </div>
 
+</div>
+<table >
+    <tr>
+        <th scope="col"> Description</th>
+        <th scope="col"> Amount</th>
+        <th scope="col"> ExecTime</th>
+    </tr>
+    <tr th:each="transactions:${transactionList}">
+        <td th:text="${transactions.description}"></td>
+        <td th:text="${transactions.amount}"></td>
+        <td th:text="${transactions.ExecTime}"></td>
+    </tr>
+</table>
 
 </body>
 </html>

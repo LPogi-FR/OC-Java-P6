@@ -31,5 +31,8 @@ public class UserEntity {
   @OneToMany(mappedBy = "friend", fetch = FetchType.LAZY)
   private List<FriendEntity> friendList;
 
+  @Column(name = "name")
+  private String name;
+
   private Boolean isActiveAccount = true;
 }

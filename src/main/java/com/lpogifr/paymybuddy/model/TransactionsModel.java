@@ -20,4 +20,5 @@ public class TransactionsModel {
   private double amount;
 
   private LocalDateTime execTime;
+  private String description;
 }

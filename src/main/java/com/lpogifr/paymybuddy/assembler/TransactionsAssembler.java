@@ -25,6 +25,7 @@ public class TransactionsAssembler implements IAssembler<TransactionsEntity, Tra
       .friend((userAssembler.fromModelToEntity(model.getFriend())))
       .amount(model.getAmount())
       .execTime(model.getExecTime())
+      .description(model.getDescription())
       .build();
   }
 
@@ -40,6 +41,7 @@ public class TransactionsAssembler implements IAssembler<TransactionsEntity, Tra
       .friend(userAssembler.fromEntityToModel(entity.getFriend()))
       .amount(entity.getAmount())
       .execTime(entity.getExecTime())
+      .description(entity.getDescription())
       .build();
   }
 
