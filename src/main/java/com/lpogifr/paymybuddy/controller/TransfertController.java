@@ -1,5 +1,8 @@
 package com.lpogifr.paymybuddy.controller;
 
+import com.lpogifr.paymybuddy.assembler.UserAssembler;
+import com.lpogifr.paymybuddy.entity.UserEntity;
+import com.lpogifr.paymybuddy.front.form.NewFriendForm;
 import com.lpogifr.paymybuddy.front.form.TransactionForm;
 import com.lpogifr.paymybuddy.model.TransactionsModel;
 import com.lpogifr.paymybuddy.model.UserModel;
@@ -7,8 +10,11 @@ import com.lpogifr.paymybuddy.service.BankAccountService;
 import com.lpogifr.paymybuddy.service.TransactionsService;
 import com.lpogifr.paymybuddy.service.UsersService;
 import jakarta.servlet.http.HttpSession;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,19 +29,19 @@ public class TransfertController {
   private final TransactionsService transactionsService;
   private final BankAccountService bankAccountService;
   private final UsersService usersService;
+  private final UserAssembler assembler;
 
   @RequestMapping(value = "/", method = RequestMethod.POST)
-  public String createTransfert(Model model, @ModelAttribute TransactionForm transactionForm, HttpSession session) {
-    UserModel userModel = (UserModel) session.getAttribute("userModel");
-    if (userModel == null) {
-      transactionForm.setUserId(1L);
-    }
-    final var moneyToRecieve = bankAccountService.sendMoney(
-      usersService.findById(transactionForm.getUserId()).getBankAccount(),
-      transactionForm.getAmount()
-    );
+  public String createTransfert(
+    Model model,
+    @ModelAttribute TransactionForm transactionForm,
+    HttpSession session,
+    @AuthenticationPrincipal UserDetails userDetails
+  ) {
+    UserModel userModel = assembler.fromEntityToModel(((UserEntity) userDetails));
+    final var moneyToRecieve = bankAccountService.sendMoney(userModel.getBankAccount(), transactionForm.getAmount());
     bankAccountService.receivceMoney(
-      usersService.findById(transactionForm.getFriendId()).getBankAccount(),
+      usersService.findByName(transactionForm.getFriend1()).getBankAccount(),
       moneyToRecieve
     );
     //UserModel userModel = usersService.findById(transactionForm.getUserId());
@@ -51,4 +57,12 @@ public class TransfertController {
     transactionsService.save(response);
     return "redirect:/index";
   }
+  /*
+  @RequestMapping(value = "/newFriend", method = RequestMethod.POST)
+  public String addFriend(Model model, @ModelAttribute NewFriendForm friendForm, HttpSession session) {
+    UserModel userModel = (UserModel) session.getAttribute("userModel");
+
+    usersService.addFriend(1L, usersService.findByEmail(friendForm.getEmail()).getId());
+    return "redirect:/index";
+  }*/
 }

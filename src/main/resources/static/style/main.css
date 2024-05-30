@@ -24,16 +24,6 @@ div.form-sendMoney {
     display: table-row;
 }
 
-label,
-input {
-    display: table-cell;
-    margin-bottom: 10px;
-}
-
-label {
-    padding-right: 10px;
-}
-
 div.top-nav {
     width: 120px;
 
@@ -73,11 +63,12 @@ nav.main-nav {
     border-radius: 10px;
 }
 
-div.form{
+div.form,div.profil,div.contact{
     border-style:solid;
     width:500px;
     background: #ececed ;
     border-radius: 15px;
+    align:center;
 }
 
 input[type=text], input[type=number]{
@@ -91,7 +82,7 @@ input[type=submit] {
     background-color: #5cb75b;
     color: #fcfdfc
 }
-label {
+label{
     display: inline-block;
     width: 150px;
     margin: 1px;

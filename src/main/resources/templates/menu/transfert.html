@@ -27,8 +27,18 @@
 
     </nav>
 
-
 </div>
+<!--
+<div align="right" class="form">
+    <h1> Add Friend</h1>
+    <form method="post" th:action="@{/transfert/}" th:object="${friendForm}">
+        <label> Add friend</label>
+        <input id="email" placeholder="Enter email" required type="text" th:field="*{email}" />
+        <br>
+    </form>
+
+</div-->
+
 <div align="center">
     <div class="form">
         <h1>Transfert money form</h1>
@@ -39,9 +49,12 @@
             <label>Amount to send :</label>
             <input id="amount" PLACEHOLDER="Enter Amount" required type="number" th:field="*{amount}"/>
             <br>
-            <input id="userID" type="hidden" value="${session.user.id}" th:field="*{userId}"/>
-            <label>Select friend :</label>
-            <input id="friendID" PLACEHOLDER="Select friend" required type="number" th:field="*{friendId}"/>
+            <label>Select Friend : </label>
+            <!--input id="friendId" PLACEHOLDER="Enter friend id" required type="text" th:field="*{friendId}"/-->
+
+            <select th:field="*{friend1}" multiple id="friend">
+                 <option  th:each="friend:${user.friendList}"  th:value="${friend.name}" th:text="${friend.name}"></option>
+             </select>
             <br>
             <input type="submit" value="Transfert money">
         </form>

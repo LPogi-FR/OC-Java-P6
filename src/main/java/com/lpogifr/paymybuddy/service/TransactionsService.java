@@ -8,4 +8,6 @@ public interface TransactionsService {
   List<TransactionsEntity> findAll();
 
   TransactionsModel save(TransactionsModel newTransactions);
+
+  List<TransactionsEntity> findByUserId(Long UserId);
 }

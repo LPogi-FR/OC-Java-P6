@@ -11,6 +11,8 @@ public interface UsersService {
   List<UserModel> findAll();
   UserModel findByEmail(String email);
 
+  UserModel findByName(String name);
+
   UserModel findById(Long id);
 
   UserModel save(UserModel newUser);

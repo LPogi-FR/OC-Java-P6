@@ -29,21 +29,21 @@
 
 
 </div>
-        <p> Balance</p>
-        <p th:text="${bankAccount.balance}"></p>
-    </div>
+<p> Balance</p>
+<p th:text="${bankAccount.balance}"></p>
+</div>
 
 </div>
-<table >
+<table align="center">
     <tr>
         <th scope="col"> Description</th>
         <th scope="col"> Amount</th>
-        <th scope="col"> ExecTime</th>
+        <th scope="col"> Friend Name</th>
     </tr>
     <tr th:each="transactions:${transactionList}">
         <td th:text="${transactions.description}"></td>
         <td th:text="${transactions.amount}"></td>
-        <td th:text="${transactions.ExecTime}"></td>
+        <td th:text="${transactions.friend.name}"></td>
     </tr>
 </table>
 

@@ -24,7 +24,7 @@ public class FriendAssembler implements IAssembler<FriendEntity, UserModel> {
     if (entity == null) {
       return null;
     }
-    return UserModel.builder().id(entity.getUser().getId()).build();
+    return UserModel.builder().id(entity.getUser().getId()).name(entity.getUser().getName()).build();
   }
 
   @Override

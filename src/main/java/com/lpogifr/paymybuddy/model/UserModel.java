@@ -19,4 +19,6 @@ public class UserModel {
   private BankAccountModel bankAccount;
 
   private List<UserModel> friendList;
+
+  private String name;
 }
