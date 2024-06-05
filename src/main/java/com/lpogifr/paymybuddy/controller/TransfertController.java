@@ -45,7 +45,7 @@ public class TransfertController {
       moneyToRecieve
     );
     //UserModel userModel = usersService.findById(transactionForm.getUserId());
-    UserModel friendModel = usersService.findById(transactionForm.getFriendId());
+    UserModel friendModel = usersService.findByName(transactionForm.getFriend1());
     final var response = TransactionsModel
       .builder()
       .user(userModel)
@@ -57,12 +57,12 @@ public class TransfertController {
     transactionsService.save(response);
     return "redirect:/index";
   }
-  /*
+
   @RequestMapping(value = "/newFriend", method = RequestMethod.POST)
   public String addFriend(Model model, @ModelAttribute NewFriendForm friendForm, HttpSession session) {
     UserModel userModel = (UserModel) session.getAttribute("userModel");
 
     usersService.addFriend(1L, usersService.findByEmail(friendForm.getEmail()).getId());
     return "redirect:/index";
-  }*/
+  }
 }

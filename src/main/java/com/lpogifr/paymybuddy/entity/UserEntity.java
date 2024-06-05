@@ -31,7 +31,7 @@ public class UserEntity implements UserDetails {
   @JoinColumn(name = "bank_account_id", referencedColumnName = "id")
   private BankAccountEntity bankAccount;
 
-  @OneToMany(mappedBy = "friend", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "friend", fetch = FetchType.EAGER)
   private List<FriendEntity> friendList;
 
   @Column(name = "name")

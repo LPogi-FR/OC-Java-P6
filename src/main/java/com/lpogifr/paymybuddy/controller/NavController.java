@@ -1,5 +1,6 @@
 package com.lpogifr.paymybuddy.controller;
 
+import com.lpogifr.paymybuddy.front.form.NewFriendForm;
 import com.lpogifr.paymybuddy.front.form.TransactionForm;
 import com.lpogifr.paymybuddy.model.UserModel;
 import com.lpogifr.paymybuddy.service.TransactionsService;
@@ -7,6 +8,7 @@ import com.lpogifr.paymybuddy.service.UsersService;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,8 +39,12 @@ public class NavController {
       userModel = service.findByEmail(principal.getName());
     }
     TransactionForm transactionForm = new TransactionForm();
+    NewFriendForm friendForm = new NewFriendForm();
+    List<UserModel> otherUsers = service.findOtherUSers(userModel.getId());
     model.addAttribute("user", userModel);
     model.addAttribute("transactionForm", transactionForm);
+    model.addAttribute("friendForm", friendForm);
+    model.addAttribute("otherUsers", otherUsers);
     return "menu/transfert";
   }
 

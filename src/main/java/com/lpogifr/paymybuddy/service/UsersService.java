@@ -22,4 +22,6 @@ public interface UsersService {
   UserModel update(UserModel updatedUser);
 
   UserModel addFriend(Long id, Long friendId);
+
+  List<UserModel> findOtherUSers(Long userId);
 }
