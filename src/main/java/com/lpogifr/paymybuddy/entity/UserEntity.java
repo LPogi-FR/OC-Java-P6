@@ -26,6 +26,6 @@ public class UserEntity {
   @JoinColumn(name = "bank_account_id", referencedColumnName = "id")
   private BankAccountEntity bankAccount;
 
-  @ManyToMany(mappedBy = "user", fetch = FetchType.LAZY)
-  private List<FriendEntity> friendList;
+  @OneToMany(mappedBy = "friend", fetch = FetchType.LAZY)
+  private List<UserEntity> friendList;
 }
