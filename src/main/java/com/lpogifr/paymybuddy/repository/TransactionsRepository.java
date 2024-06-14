@@ -12,4 +12,6 @@ public interface TransactionsRepository extends JpaRepository<TransactionsEntity
   TransactionsEntity findByExecTime(LocalDateTime execTime);
 
   TransactionsEntity save(TransactionsEntity entity);
+
+  List<TransactionsEntity> findATransactionsEntitiesByUserId(Long userId);
 }

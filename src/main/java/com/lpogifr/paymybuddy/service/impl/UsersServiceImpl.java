@@ -46,6 +46,12 @@ public class UsersServiceImpl implements UsersService {
   }
 
   @Override
+  public UserModel findByName(String name) {
+    UserEntity entity = repository.findByName(name);
+    return assembler.fromEntityToModel(entity);
+  }
+
+  @Override
   public UserModel findById(Long id) {
     Optional<UserEntity> entityOptional = repository.findById(id);
     return entityOptional.map(assembler::fromEntityToModel).orElse(null);

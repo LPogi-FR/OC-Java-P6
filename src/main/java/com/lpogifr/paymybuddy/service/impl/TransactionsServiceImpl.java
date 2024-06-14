@@ -27,4 +27,9 @@ public class TransactionsServiceImpl implements TransactionsService {
     repository.save(assembler.fromModelToEntity(newTransactions));
     return newTransactions;
   }
+
+  @Override
+  public List<TransactionsEntity> findByUserId(Long UserId) {
+    return repository.findAll().stream().filter(p -> p.getUser().getId() == UserId).toList();
+  }
 }

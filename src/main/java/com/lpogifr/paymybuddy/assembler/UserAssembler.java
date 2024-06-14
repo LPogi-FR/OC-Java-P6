@@ -26,6 +26,7 @@ public class UserAssembler implements IAssembler<UserEntity, UserModel> {
       .password(model.getPassword())
       .bankAccount(bankAccountAssembler.fromModelToEntity(model.getBankAccount()))
       .friendList(friendAssembler.fromModelListToEntityList(model.getFriendList()))
+      .name(model.getName())
       .build();
   }
 
@@ -41,6 +42,7 @@ public class UserAssembler implements IAssembler<UserEntity, UserModel> {
       .friendList(friendAssembler.fromEntityListToModelList(entity.getFriendList()))
       .email(entity.getEmail())
       .password(entity.getPassword())
+      .name(entity.getName())
       .build();
   }
 

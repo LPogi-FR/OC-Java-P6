@@ -2,10 +2,11 @@ package com.lpogifr.paymybuddy.controller;
 
 import com.lpogifr.paymybuddy.front.form.TransactionForm;
 import com.lpogifr.paymybuddy.model.UserModel;
+import com.lpogifr.paymybuddy.service.TransactionsService;
 import com.lpogifr.paymybuddy.service.UsersService;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
-import lombok.AllArgsConstructor;
+import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,15 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequiredArgsConstructor
-public class HomeController {
+public class NavController {
 
   private final UsersService service;
+  private final TransactionsService transactionsService;
   private UserModel userModel;
-
-  @PostConstruct
-  public void init() {
-    userModel = service.findById(1L);
-  }
 
   @GetMapping("/index")
   public String index(Model model, HttpSession session) {
@@ -35,14 +32,21 @@ public class HomeController {
   }
 
   @GetMapping("/transfert")
-  public String transfert(Model model) {
+  public String transfert(Model model, Principal principal) {
+    if (userModel == null) {
+      userModel = service.findByEmail(principal.getName());
+    }
     TransactionForm transactionForm = new TransactionForm();
+    model.addAttribute("user", userModel);
     model.addAttribute("transactionForm", transactionForm);
     return "menu/transfert";
   }
 
-  @GetMapping("/home")
-  public String home(Model model) {
+  @GetMapping({ "/home", "/" })
+  public String home(Model model, Principal principal) {
+    userModel = service.findByEmail(principal.getName());
+    model.addAttribute("bankAccount", userModel.getBankAccount());
+    model.addAttribute("transactionList", transactionsService.findByUserId(userModel.getId()));
     return "menu/home";
   }
 
@@ -53,6 +57,8 @@ public class HomeController {
 
   @GetMapping("/profile")
   public String profile(Model model) {
+    model.addAttribute("user", userModel);
+
     return "menu/profile";
   }
 

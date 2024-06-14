@@ -1,5 +1,6 @@
 package com.lpogifr.paymybuddy.front.form;
 
+import com.lpogifr.paymybuddy.model.UserModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,4 +12,5 @@ public class TransactionForm {
   private double amount;
   private Long userId;
   private Long friendId;
+  private String friend1;
 }

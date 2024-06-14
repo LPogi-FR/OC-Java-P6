@@ -8,11 +8,15 @@
 </head>
 <body>
 
-<H1>  Profile</H1>
+<H1> Profile</H1>
 
 <div>
     <nav class="main-nav" aria-label="Main menu">
+        PAY MY BUDDY
         <ul id="navigation">
+
+            <div class="top-nav"><a class="nav-link" href="index">Pay My Buddy</a></div>
+
             <li class="nav-item"><a class="nav-link" href="home">Home</a>
             <li class="nav-item"><a class="nav-link" href="transfert">Transfer</a>
             <li class="nav-item"><a class="nav-link" href="profile">Profile</a>
@@ -23,6 +27,36 @@
 
     </nav>
 
+
+</div>
+
+<div align="center">
+    <div class="profil">
+        <h1 align="center">My Profile</h1>
+        <div align="center">
+            <label> Name :</label>
+            <label th:text="${user.name}"> </label>
+            <br>
+            <label> Email :</label>
+            <label th:text="${user.email}"> </label>
+            <br>
+            <label> Bic :</label>
+            <label th:text="${user.bankAccount.bic}"> </label>
+            <br>
+            <label> Iban :</label>
+            <label th:text="${user.bankAccount.iban}"> </label>
+            <br>
+            <label> Balance :</label>
+            <label th:text="${user.bankAccount.balance}"> </label>
+            <br>
+            <label> FriendList :</label>
+            <div th:each="friend:${user.friendList}">
+                <label th:text="${friend.name}"> </label>
+            </div>
+            <br>
+        </div>
+
+    </div>
 
 </div>
 
