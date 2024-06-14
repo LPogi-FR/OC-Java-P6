@@ -109,4 +109,9 @@ public class UsersServiceImpl implements UsersService {
     }
     return assembler.fromEntityToModel(response.orElse(null));
   }
+
+  @Override
+  public List<UserModel> findOtherUSers(Long userId) {
+    return assembler.fromEntityListToModelList(repository.findOtheUser(userId));
+  }
 }
