@@ -24,8 +24,8 @@ public class UserAssembler implements IAssembler<UserEntity, UserModel> {
       .id(model.getId())
       .email(model.getEmail())
       .password(model.getPassword())
-      //.bankAccount(bankAccountAssembler.fromModelToEntity(model.getBankAccount()))
-      //.friendList(friendAssembler.fromModelListToEntityList(model.getFriendList()))
+      .friendList(friendAssembler.fromModelListToEntityList(model.getFriendList()))
+      .bankAccount(bankAccountAssembler.fromModelToEntity(model.getBankAccount()))
       .build();
   }
 

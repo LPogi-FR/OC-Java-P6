@@ -19,5 +19,5 @@ public interface UsersService {
 
   UserModel update(UserModel updatedUser);
 
-  UserModel addFriend(Long id, String email);
+  UserModel addFriend(Long id, Long friendId);
 }

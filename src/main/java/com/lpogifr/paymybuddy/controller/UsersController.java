@@ -59,11 +59,11 @@ public class UsersController {
   }
 
   @PostMapping("/users/{id}/friend")
-  public ResponseEntity<UserModel> addFriend(@PathVariable Long id, @RequestBody final String email) {
+  public ResponseEntity<UserModel> addFriend(@PathVariable Long id, @RequestBody final Long friendId) {
     if (usersService.findById(id) == null) {
       return ResponseEntity.notFound().build();
     }
-    final var response = usersService.addFriend(id, email);
+    final var response = usersService.addFriend(id, friendId);
     //find friend(user) by id
     //add friend to user
 
