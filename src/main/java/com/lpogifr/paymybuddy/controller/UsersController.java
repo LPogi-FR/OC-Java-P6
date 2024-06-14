@@ -1,7 +1,5 @@
 package com.lpogifr.paymybuddy.controller;
 
-import com.lpogifr.paymybuddy.assembler.Assembler;
-import com.lpogifr.paymybuddy.dto.UsersDto;
 import com.lpogifr.paymybuddy.model.UserModel;
 import com.lpogifr.paymybuddy.service.UsersService;
 import java.util.List;
@@ -17,20 +15,10 @@ import org.springframework.web.bind.annotation.*;
 public class UsersController {
 
   private final UsersService usersService;
-  private final Assembler assembler;
 
   @GetMapping("/users")
   public ResponseEntity<List<UserModel>> findAllUsers() {
     List<UserModel> response = usersService.findAll();
-    return new ResponseEntity<>(response, HttpStatus.OK);
-  }
-
-  @GetMapping("/users/{id}")
-  public ResponseEntity<UserModel> getById(@PathVariable long id) {
-    UserModel response = usersService.findById(id);
-    if (response == null) {
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 
@@ -67,6 +55,18 @@ public class UsersController {
       return ResponseEntity.notFound().build();
     }
     final var response = usersService.update(model);
+    return new ResponseEntity<>(response, HttpStatus.OK);
+  }
+
+  @PostMapping("/users/{id}/friend")
+  public ResponseEntity<UserModel> addFriend(@PathVariable Long id, @RequestBody final Long friendId) {
+    if (usersService.findById(id) == null) {
+      return ResponseEntity.notFound().build();
+    }
+    final var response = usersService.addFriend(id, friendId);
+    //find friend(user) by id
+    //add friend to user
+
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 }

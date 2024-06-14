@@ -3,18 +3,30 @@ package com.lpogifr.paymybuddy.assembler;
 import com.lpogifr.paymybuddy.entity.UserEntity;
 import com.lpogifr.paymybuddy.model.UserModel;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 @Component
+@AllArgsConstructor
 public class UserAssembler implements IAssembler<UserEntity, UserModel> {
+
+  private BankAccountAssembler bankAccountAssembler;
+  private FriendAssembler friendAssembler;
 
   @Override
   public UserEntity fromModelToEntity(UserModel model) {
     if (model == null) {
       return null;
     }
-    return UserEntity.builder().id(model.getId()).email(model.getEmail()).password(model.getPassword()).build();
+    return UserEntity
+      .builder()
+      .id(model.getId())
+      .email(model.getEmail())
+      .password(model.getPassword())
+      .friendList(friendAssembler.fromModelListToEntityList(model.getFriendList()))
+      .bankAccount(bankAccountAssembler.fromModelToEntity(model.getBankAccount()))
+      .build();
   }
 
   @Override
@@ -22,7 +34,14 @@ public class UserAssembler implements IAssembler<UserEntity, UserModel> {
     if (entity == null) {
       return null;
     }
-    return UserModel.builder().id(entity.getId()).email(entity.getEmail()).build();
+    return UserModel
+      .builder()
+      .id(entity.getId())
+      .bankAccount(bankAccountAssembler.fromEntityToModel(entity.getBankAccount()))
+      .friendList(friendAssembler.fromEntityListToModelList(entity.getFriendList()))
+      .email(entity.getEmail())
+      .password(entity.getPassword())
+      .build();
   }
 
   @Override
