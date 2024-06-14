@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.*;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 @Getter
 @Setter
@@ -17,7 +18,7 @@ public class TransactionsEntity {
   @Id
   @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   @OneToOne
   @JoinColumn(name = "user_id", referencedColumnName = "id")

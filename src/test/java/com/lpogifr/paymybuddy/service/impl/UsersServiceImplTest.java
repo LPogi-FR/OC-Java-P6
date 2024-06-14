@@ -70,6 +70,6 @@ class UsersServiceImplTest {
 
   @Test
   void itShouldAddFriend() {
-    assertDoesNotThrow(() -> service.addFriend(1L, "sdgsdg"));
+    assertDoesNotThrow(() -> service.addFriend(1L, 2L));
   }
 }

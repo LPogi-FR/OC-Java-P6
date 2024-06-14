@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add CSS to Thymeleaf</title>
+    <link href="../../static/style/main.css" rel="stylesheet" data-th-href="@{/style/main.css}"/>
+    <script th:src="@{/resources/static/js/script.js}"></script>
+</head>
+<body>
+
+<h1> Transfert</h1>
+
+<div>
+    <nav class="main-nav" aria-label="Main menu">
+        PAY MY BUDDY
+        <ul id="navigation">
+
+            <div class="top-nav"><a class="nav-link" href="index">Pay My Buddy</a></div>
+
+            <li class="nav-item"><a class="nav-link" href="home">Home</a>
+            <li class="nav-item"><a class="nav-link" href="transfert">Transfer</a>
+            <li class="nav-item"><a class="nav-link" href="profile">Profile</a>
+            <li class="nav-item"><a class="nav-link" href="contact">Contact</a>
+            <li class="nav-item"><a class="nav-link" href="logoff">Log Off</a>
+
+        </ul>
+
+    </nav>
+
+
+</div>
+
+
+<form method="post" th:action="@{/transfert/}" th:object="${transactionForm}">
+
+    <input id="description" PLACEHOLDER="Enter description" required type="text" th:field="*{description}" />
+    <input id="amount" PLACEHOLDER="Enter Amount" required type="number" th:field="*{amount}" />
+    <input id="userID" type="hidden" value="${session.user.id}" th:field="*{userId}" />
+    <input id="friendID" PLACEHOLDER="Select friend" required type="number" th:field="*{friendId}" />
+    <input type="submit" value="Send money">
+
+
+</form>
+<!--div class="form-group">
+    <label for="role">Role</label>
+    <select id="role" required th:field="*{role}" class="form-control ">
+        <option value="" hidden>Select a role</option>
+        <option th:each="role : ${T(com.springhow.examples.springboot.thymeleaf.domain.entities.Role).values()}"
+                th:value="${role}"
+                th:text="${role}">
+        </option>
+    </select>
+</div-->
+</body>
+</html>
