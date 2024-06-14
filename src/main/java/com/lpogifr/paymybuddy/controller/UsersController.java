@@ -21,13 +21,22 @@ public class UsersController {
 
   @GetMapping("/users")
   public ResponseEntity<List<UserModel>> findAllUsers() {
-    List<UserModel> response = assembler.userEntityToModel(usersService.findAll());
+    List<UserModel> response = usersService.findAll();
+    return new ResponseEntity<>(response, HttpStatus.OK);
+  }
+
+  @GetMapping("/users/{id}")
+  public ResponseEntity<UserModel> getById(@PathVariable long id) {
+    UserModel response = usersService.findById(id);
+    if (response == null) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 
   @GetMapping("/users/{email}")
   public ResponseEntity<UserModel> findUserByEmail(@PathVariable(name = "email") String email) {
-    UserModel response = assembler.userEntityToModel(usersService.findByEmail(email));
+    UserModel response = usersService.findByEmail(email);
     if (response == null) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -35,19 +44,29 @@ public class UsersController {
   }
 
   @PostMapping("/users")
-  public ResponseEntity<UserModel> save(@RequestBody final UsersDto dto) {
-    final var response = assembler.userEntityToModel(usersService.save(dto));
+  public ResponseEntity<UserModel> save(@RequestBody final UserModel model) {
+    if (model == null) {
+      return ResponseEntity.badRequest().build();
+    }
+    final var response = usersService.save(model);
     return new ResponseEntity<>(response, HttpStatus.CREATED);
   }
 
   @DeleteMapping("/users/{email}")
   public ResponseEntity<UserModel> delete(@PathVariable(name = "email") String email) {
+    if (usersService.findByEmail(email) == null) {
+      return ResponseEntity.notFound().build();
+    }
     usersService.delete(email);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
-  /*@PutMapping("/users")
-  public ResponseEntity<UserModel> update(@RequestBody final UsersDto dto) {
-    final var response = usersService.update(dto);
+
+  @PutMapping("/users/{id}")
+  public ResponseEntity<UserModel> update(@PathVariable Long id, @RequestBody final UserModel model) {
+    if (usersService.findById(id) == null) {
+      return ResponseEntity.notFound().build();
+    }
+    final var response = usersService.update(model);
     return new ResponseEntity<>(response, HttpStatus.OK);
-  }*/
+  }
 }

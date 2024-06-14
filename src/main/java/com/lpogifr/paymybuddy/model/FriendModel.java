@@ -1,6 +1,6 @@
 package com.lpogifr.paymybuddy.model;
 
-import com.lpogifr.paymybuddy.entity.UserEntity;
+import com.lpogifr.paymybuddy.entity.FriendPrimaryKey;
 import lombok.*;
 
 @Getter
@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 public class FriendModel {
 
-  private long friendId;
+  private UserModel friend;
 
-  private UserEntity user;
+  private UserModel user;
 }

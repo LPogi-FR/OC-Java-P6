@@ -14,7 +14,7 @@ public class UserModel {
 
   private String email;
 
-  //private String password;
+  private String password;
 
   private BankAccountModel bankAccount;
 

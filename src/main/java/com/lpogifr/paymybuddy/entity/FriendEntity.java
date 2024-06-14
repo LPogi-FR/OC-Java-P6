@@ -11,12 +11,14 @@ import lombok.*;
 public class FriendEntity {
 
   @ManyToOne
-  @JoinColumn(name = "user_id", referencedColumnName = "id")
-  private UserEntity friend;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id", referencedColumnName = "id")
+  @MapsId("userId")
+  @JoinColumn(name = "user_id")
   private UserEntity user;
+
+  @ManyToOne
+  @MapsId("friendId")
+  @JoinColumn(name = "friend_id")
+  private UserEntity friend;
 
   @EmbeddedId
   private FriendPrimaryKey id;

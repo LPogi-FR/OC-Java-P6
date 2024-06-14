@@ -11,10 +11,14 @@ public interface UsersService {
    * Find all Users in Database
    * @return List<UserEntity>
    */
-  List<UserEntity> findAll();
-  UserEntity findByEmail(String email);
+  List<UserModel> findAll();
+  UserModel findByEmail(String email);
 
-  UserEntity save(UsersDto dto);
+  UserModel findById(Long id);
+
+  UserModel save(UserModel newUser);
 
   void delete(String email);
+
+  UserModel update(UserModel updatedUser);
 }
