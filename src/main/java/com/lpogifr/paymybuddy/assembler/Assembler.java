@@ -6,17 +6,25 @@ import com.lpogifr.paymybuddy.entity.UserEntity;
 import com.lpogifr.paymybuddy.model.BankAccountModel;
 import com.lpogifr.paymybuddy.model.FriendModel;
 import com.lpogifr.paymybuddy.model.UserModel;
+import java.util.Collection;
 import java.util.List;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 @Component
 public class Assembler {
 
   public List<UserModel> userEntityToModel(List<UserEntity> userEntityList) {
+    if (CollectionUtils.isEmpty(userEntityList)) {
+      return null;
+    }
     return userEntityList.stream().map(this::userEntityToModel).toList();
   }
 
-  private UserModel userEntityToModel(UserEntity userEntity) {
+  public UserModel userEntityToModel(UserEntity userEntity) {
+    if (userEntity == null) {
+      return null;
+    }
     return UserModel
       .builder()
       .id(userEntity.getId())
