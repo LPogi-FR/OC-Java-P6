@@ -1,6 +1,7 @@
 package com.lpogifr.paymybuddy.assembler;
 
 import com.lpogifr.paymybuddy.entity.FriendEntity;
+import com.lpogifr.paymybuddy.entity.UserEntity;
 import com.lpogifr.paymybuddy.model.FriendModel;
 import com.lpogifr.paymybuddy.model.UserModel;
 import java.util.List;
@@ -15,8 +16,8 @@ public class FriendAssembler implements IAssembler<FriendEntity, UserModel> {
     if (model == null) {
       return null;
     }
-    return null;
-    //return FriendEntity.builder().id(model.getId()).build();
+    var userEntity = UserEntity.builder().id(model.getId()).build();
+    return FriendEntity.builder().friend(userEntity).build();
   }
 
   @Override
@@ -24,7 +25,7 @@ public class FriendAssembler implements IAssembler<FriendEntity, UserModel> {
     if (entity == null) {
       return null;
     }
-    return UserModel.builder().id(entity.getUser().getId()).build();
+    return UserModel.builder().id(entity.getFriend().getId()).build();
   }
 
   @Override
