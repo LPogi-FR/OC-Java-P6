@@ -3,6 +3,7 @@ package com.lpogifr.paymybuddy.controller;
 import com.lpogifr.paymybuddy.assembler.UserAssembler;
 import com.lpogifr.paymybuddy.entity.UserEntity;
 import com.lpogifr.paymybuddy.front.form.NewFriendForm;
+import com.lpogifr.paymybuddy.front.form.RegisterForm;
 import com.lpogifr.paymybuddy.front.form.TransactionForm;
 import com.lpogifr.paymybuddy.model.TransactionsModel;
 import com.lpogifr.paymybuddy.model.UserModel;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.Banner;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -63,6 +65,11 @@ public class TransfertController {
     UserModel userModel = (UserModel) session.getAttribute("userModel");
 
     usersService.addFriend(1L, usersService.findByEmail(friendForm.getEmail()).getId());
+    return "redirect:/index";
+  }
+
+  @RequestMapping(value = "/register/createAccount", method = RequestMethod.POST)
+  public String register(Model model, @ModelAttribute RegisterForm registerForm) {
     return "redirect:/index";
   }
 }

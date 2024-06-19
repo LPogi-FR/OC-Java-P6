@@ -9,8 +9,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -39,13 +37,15 @@ public class SecurityConfig {
         auth.requestMatchers("/").permitAll();
         auth.requestMatchers("/error/**").permitAll();
         auth.requestMatchers("/login").permitAll();
+        auth.requestMatchers("/register").permitAll();
         auth.anyRequest().authenticated();
       })
       //  .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       // .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(jwtDecoder())))
       //.userDetailsService(userDetailsService)
       .httpBasic(Customizer.withDefaults())
-      .formLogin(Customizer.withDefaults())
+      .formLogin(form -> form.loginPage("/login").failureUrl("/login?error=true"))
+      .logout(logout -> logout.logoutSuccessUrl("/login?logout=true").deleteCookies("JSESSIONID").logoutUrl("/logout"))
       .build();
   }
 

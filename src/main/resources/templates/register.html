@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Pay My Buddy Application</title>
+    <link href="../static/style/main.css" rel="stylesheet" data-th-href="@{/style/main.css}"/>
+    <script th:src="@{/resources/static/js/script.js}"></script>
+</head>
+<body>
+
+<div>
+    <div align="center" class="form">
+
+        <h1> Register Form</h1>
+        <form method="post" th:action="@{/register/}" th:object="@{registerForm}">
+            <input id="email" placeholder="Enter Email" required type="text" th:field="*{email}">
+            <br>
+            <input id="password" placeholder="Enter Password" required type="text" th:field="*{password}">
+            <br>
+            <input id="name" placeholder="Enter Name" required type="text" th:field="*{name}">
+            <br>
+            <input id="bic" placeholder="Enter Bic" required type="text" th:field="*{bic}">
+            <br>
+            <input id="iban" placeholder="Enter Iban" required type="text" th:field="*{iban}">
+            <br>
+            <input type="submit" value="Register">
+        </form>
+
+    </div>
+
+
+</div>
+
+
+
+
+</body>
