@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 
+import com.lpogifr.paymybuddy.PayMyBuddyAppTest;
 import com.lpogifr.paymybuddy.assembler.BankAccountAssembler;
 import com.lpogifr.paymybuddy.model.BankAccountModel;
 import com.lpogifr.paymybuddy.repository.BankAccountRepository;
@@ -13,54 +14,49 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest(classes = { PayMyBuddyAppTest.class })
+@TestPropertySource(locations = { "classpath:application-test.properties" })
 class BankAccountServiceImplTest {
 
-  @InjectMocks
+  @Autowired
   private BankAccountServiceImpl service;
-
-  @Mock
-  private BankAccountRepository repository;
-
-  @Mock
-  private BankAccountAssembler assembler;
 
   @Test
   void itShouldFindAll() {
-    assertDoesNotThrow(() -> service.findAll());
-    verify(repository).findAll();
+    final var all = assertDoesNotThrow(() -> service.findAll());
+    assertEquals(3, all.size());
   }
 
   @Test
   void itShouldFindById() {
-    assertDoesNotThrow(() -> service.findById(1L));
-    verify(repository).findById(anyLong());
+    final var id = assertDoesNotThrow(() -> service.findById(1L));
+    assertEquals("123", id.getBic());
   }
 
   @Test
   void itShouldSave() {
     assertDoesNotThrow(() -> service.save(BankAccountModel.builder().build()));
-    verify(repository).save(any());
-  }
-
-  @Test
-  void itShouldDeleteById() {
-    assertDoesNotThrow(() -> service.deleteById(1L));
-    verify(repository).deleteById(any());
   }
 
   @Test
   void itShouldUpdate() {
     // Add a bankAccount in DB
     assertDoesNotThrow(() -> service.update(1L, BankAccountModel.builder().build()));
-    verify(repository).save(any());
+  }
+
+  @Test
+  void itShouldDeleteById() {
+    assertDoesNotThrow(() -> service.deleteById(1L));
   }
 
   @Test
   void itShouldSendMoney() {
     //Need DB
-    assertDoesNotThrow(() -> service.sendMoney(BankAccountModel.builder().balance(300D).build(), 200));
+    assertDoesNotThrow(() -> service.sendMoney(service.findById(1L), 200));
     //verify(service).update(anyLong(), any());
   }
 

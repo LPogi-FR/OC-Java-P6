@@ -1,3 +1,4 @@
+use test;
 insert into bank_account(iban,bic,balance) values('fr0548796264781','1876943264',400);
 insert into bank_account(iban,bic,balance) values('fr0897462187894','1458796354',0);
 insert into bank_account(iban,bic,balance) values('fr0897464844894','14584954854',200);

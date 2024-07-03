@@ -86,8 +86,17 @@ public class UsersServiceImpl implements UsersService {
     repository.deleteByEmail(email);
   }
 
-  public UserModel update(UserModel updatedUser) {
-    return assembler.fromEntityToModel(repository.save(assembler.fromModelToEntity(updatedUser)));
+  public UserModel update(Long id, UserModel updatedUser) {
+    Optional<UserEntity> entity = repository.findById(id);
+    entity.ifPresentOrElse(
+      p -> {
+        p.setName(updatedUser.getName());
+        p.setEmail(updatedUser.getEmail());
+        repository.save(p);
+      },
+      () -> System.out.println("User Not Found")
+    );
+    return assembler.fromEntityToModel(repository.findById(id).orElse(null));
   }
 
   @Override

@@ -67,9 +67,10 @@ public class TransfertController {
     usersService.addFriend(1L, usersService.findByEmail(friendForm.getEmail()).getId());
     return "redirect:/index";
   }
-
+  /*
   @RequestMapping(value = "/register/createAccount", method = RequestMethod.POST)
   public String register(Model model, @ModelAttribute RegisterForm registerForm) {
+
     return "redirect:/index";
-  }
+  }*/
 }
