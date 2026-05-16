@@ -1,6 +1,7 @@
 package com.lpogifr.paymybuddy.controller;
 
 import com.lpogifr.paymybuddy.front.form.NewFriendForm;
+import com.lpogifr.paymybuddy.front.form.RegisterForm;
 import com.lpogifr.paymybuddy.front.form.TransactionForm;
 import com.lpogifr.paymybuddy.model.UserModel;
 import com.lpogifr.paymybuddy.service.TransactionsService;
@@ -71,5 +72,17 @@ public class NavController {
   @GetMapping("/logoff")
   public String logoff(Model model) {
     return "menu/logoff";
+  }
+
+  @GetMapping("/login")
+  public String login(Model model) {
+    return "login";
+  }
+
+  @GetMapping("/register")
+  public String register(Model model) {
+    RegisterForm registerForm = new RegisterForm();
+    model.addAttribute("registerForm", registerForm);
+    return "register";
   }
 }
