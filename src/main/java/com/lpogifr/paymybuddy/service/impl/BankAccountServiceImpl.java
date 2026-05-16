@@ -10,6 +10,7 @@ import com.lpogifr.paymybuddy.repository.BankAccountRepository;
 import com.lpogifr.paymybuddy.service.BankAccountService;
 import java.util.List;
 import java.util.Optional;
+import javax.swing.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -59,12 +60,31 @@ public class BankAccountServiceImpl implements BankAccountService {
 
   @Override
   public double sendMoney(BankAccountModel bankAccount, double sentAmount) {
-    if (!isSentAmountPositiveAndNotNull(sentAmount) || !isBalancePositive(bankAccount.getBalance(), sentAmount)) {
-      System.out.println("Operation Impossible");
-      // return new Exception()
+    if (isSentAmountPositiveAndNotNull(sentAmount)) {
+      if (isBalancePositive(bankAccount.getBalance(), sentAmount)) {
+        bankAccount.setBalance(bankAccount.getBalance() - sentAmount);
+        update(bankAccount.getId(), bankAccount);
+      } else {
+        sentAmount = 0;
+        System.out.println("Operation Impossible not enough found in bank account");
+        /*JOptionPane.showMessageDialog(
+          this,
+          "Error in Transaction",
+          "Operation Impossible not enough found in bank account",
+          JOptionPane.ERROR_MESSAGE
+        );*/
+      }
+    } else {
+      sentAmount = 0;
+      System.out.println("Operation Impossible sent amount negative or null");
+      JOptionPane.showMessageDialog(
+        null,
+        "Error in Transaction",
+        "Operation Impossible sent amount negative or null",
+        JOptionPane.ERROR_MESSAGE
+      );
     }
-    bankAccount.setBalance(bankAccount.getBalance() - sentAmount);
-    update(bankAccount.getId(), bankAccount);
+    // return new Exception()*/
     return sentAmount;
   }
 

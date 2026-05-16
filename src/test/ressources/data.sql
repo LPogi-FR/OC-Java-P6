@@ -14,5 +14,3 @@ insert into transactions(user_id,friend_id,amount,description,exec_time) values(
 insert into transactions(user_id,friend_id,amount,description,exec_time) values(1,2,5,"Timbre",'2024-04-14 15:23:41');
 
 
-
-
