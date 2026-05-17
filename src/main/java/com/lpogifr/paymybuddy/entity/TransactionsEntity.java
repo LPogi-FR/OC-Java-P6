@@ -15,6 +15,7 @@ public class TransactionsEntity {
 
   @Id
   @Column(name = "id")
+  @SequenceGenerator(name = "trSeqGen", sequenceName = "tr_sequence", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 

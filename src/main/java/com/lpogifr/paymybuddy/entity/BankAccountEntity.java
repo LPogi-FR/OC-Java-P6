@@ -14,6 +14,7 @@ public class BankAccountEntity {
 
   @Id
   @Column(name = "id")
+  @SequenceGenerator(name = "bcSeqGen", sequenceName = "bc_sequence", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 

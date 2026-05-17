@@ -54,7 +54,7 @@ public class UsersController {
     if (usersService.findById(id) == null) {
       return ResponseEntity.notFound().build();
     }
-    final var response = usersService.update(model);
+    final var response = usersService.update(id, model);
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 

@@ -19,7 +19,7 @@ public interface UsersService {
 
   void delete(String email);
 
-  UserModel update(UserModel updatedUser);
+  UserModel update(Long id, UserModel updatedUser);
 
   UserModel addFriend(Long id, Long friendId);
 

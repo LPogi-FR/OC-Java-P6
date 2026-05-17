@@ -12,7 +12,7 @@
     <div align="center" class="form">
 
         <h1> Register Form</h1>
-        <form method="post" th:action="@{/register/}" th:object="@{registerForm}">
+        <form method="post" th:action="@{/registerNewAccount/}" th:object="${registerForm}">
             <input id="email" placeholder="Enter Email" required type="text" th:field="*{email}">
             <br>
             <input id="password" placeholder="Enter Password" required type="text" th:field="*{password}">

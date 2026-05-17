@@ -18,6 +18,7 @@ public class UserEntity implements UserDetails {
 
   @Id
   @Column(name = "id", insertable = false, updatable = false)
+  @SequenceGenerator(name = "uSeqGen", sequenceName = "u_sequence", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
@@ -27,11 +28,11 @@ public class UserEntity implements UserDetails {
   @Column(name = "password")
   private String password;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "bank_account_id", referencedColumnName = "id")
   private BankAccountEntity bankAccount;
 
-  @OneToMany(mappedBy = "friend", fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "friend", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private List<FriendEntity> friendList;
 
   @Column(name = "name")

@@ -73,7 +73,7 @@ class UsersControllerTest {
   @Test
   void itShouldUpdate() throws Exception {
     mockMvc.perform(get("/users")).andDo(print()).andExpect(status().isOk());
-    verify(service).update(any());
+    verify(service).update(3L, any());
   }
 
   @Test

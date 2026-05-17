@@ -46,7 +46,6 @@ public class TransfertController {
       usersService.findByName(transactionForm.getFriend1()).getBankAccount(),
       moneyToRecieve
     );
-    //UserModel userModel = usersService.findById(transactionForm.getUserId());
     UserModel friendModel = usersService.findByName(transactionForm.getFriend1());
     final var response = TransactionsModel
       .builder()
@@ -67,9 +66,10 @@ public class TransfertController {
     usersService.addFriend(1L, usersService.findByEmail(friendForm.getEmail()).getId());
     return "redirect:/index";
   }
-
+  /*
   @RequestMapping(value = "/register/createAccount", method = RequestMethod.POST)
   public String register(Model model, @ModelAttribute RegisterForm registerForm) {
+
     return "redirect:/index";
-  }
+  }*/
 }
