@@ -1,7 +1,6 @@
 package com.lpogifr.paymybuddy.controller;
 
 import static com.lpogifr.paymybuddy.utils.AppUtils.asJson;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
@@ -11,11 +10,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.lpogifr.paymybuddy.assembler.UserAssembler;
-import com.lpogifr.paymybuddy.model.BankAccountModel;
+import com.lpogifr.paymybuddy.model.AccountModel;
 import com.lpogifr.paymybuddy.model.UserModel;
 import com.lpogifr.paymybuddy.service.UsersService;
 import java.util.Collections;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -51,7 +49,7 @@ class UsersControllerTest {
   void itShouldSave() throws Exception {
     UserModel model = UserModel
       .builder()
-      .bankAccount(BankAccountModel.builder().build())
+      .account(AccountModel.builder().build())
       .email("email")
       .id(1L)
       .password("password")

@@ -1,20 +1,19 @@
 package com.lpogifr.paymybuddy.service.impl;
 
-import com.lpogifr.paymybuddy.assembler.BankAccountAssembler;
+import com.lpogifr.paymybuddy.assembler.AccountAssembler;
 import com.lpogifr.paymybuddy.assembler.UserAssembler;
-import com.lpogifr.paymybuddy.entity.BankAccountEntity;
+import com.lpogifr.paymybuddy.entity.AccountEntity;
 import com.lpogifr.paymybuddy.entity.FriendEntity;
 import com.lpogifr.paymybuddy.entity.FriendPrimaryKey;
 import com.lpogifr.paymybuddy.entity.UserEntity;
 import com.lpogifr.paymybuddy.model.UserModel;
-import com.lpogifr.paymybuddy.repository.BankAccountRepository;
+import com.lpogifr.paymybuddy.repository.AccountRepository;
 import com.lpogifr.paymybuddy.repository.FriendRepository;
 import com.lpogifr.paymybuddy.repository.UsersRepository;
 import com.lpogifr.paymybuddy.service.UsersService;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,13 +25,13 @@ public class UsersServiceImpl implements UsersService {
 
   private final UsersRepository repository;
 
-  private final BankAccountRepository bankAccountRepository;
+  private final AccountRepository accountRepository;
 
   private final FriendRepository friendRepository;
 
   private final UserAssembler assembler;
 
-  private final BankAccountAssembler bankAccountAssembler;
+  private final AccountAssembler accountAssembler;
 
   @Override
   public List<UserModel> findAll() {
@@ -60,25 +59,23 @@ public class UsersServiceImpl implements UsersService {
   @Override
   public UserModel save(UserModel newUser) {
     UserEntity entityToSave = assembler.fromModelToEntity(newUser);
-    BankAccountEntity bankAccountEntity = bankAccountRepository.save(createBankAccount(entityToSave));
-    entityToSave.setBankAccount(bankAccountEntity);
+    AccountEntity accountEntity = accountRepository.save(createAccount(entityToSave));
+    entityToSave.setAccount(accountEntity);
     UserEntity savedUserEntity = repository.save(entityToSave);
-    bankAccountEntity.setUsers(savedUserEntity);
-    bankAccountEntity = bankAccountRepository.save(bankAccountEntity);
+    accountEntity.setUsers(savedUserEntity);
+    accountEntity = accountRepository.save(accountEntity);
     UserModel saved = assembler.fromEntityToModel(savedUserEntity);
-    saved.setBankAccount(bankAccountAssembler.fromEntityToModel(bankAccountEntity));
+    saved.setAccount(accountAssembler.fromEntityToModel(accountEntity));
     return saved;
   }
 
-  private BankAccountEntity createBankAccount(UserEntity entityToSave) {
-    BankAccountEntity bankAccount = new BankAccountEntity();
-    bankAccount.setUsers(entityToSave);
-    bankAccount.setIban(UUID.randomUUID().toString());
-    bankAccount.setBic("CFRREFF");
+  private AccountEntity createAccount(UserEntity entityToSave) {
+    AccountEntity account = new AccountEntity();
+    account.setUsers(entityToSave);
     double leftLimit = 100D;
     double rightLimit = 1000D;
-    bankAccount.setBalance(leftLimit + new Random().nextDouble() * (rightLimit - leftLimit));
-    return bankAccount;
+    account.setBalance(leftLimit + new Random().nextDouble() * (rightLimit - leftLimit));
+    return account;
   }
 
   @Override

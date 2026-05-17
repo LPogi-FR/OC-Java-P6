@@ -6,7 +6,6 @@ import com.lpogifr.paymybuddy.front.form.TransactionForm;
 import com.lpogifr.paymybuddy.model.UserModel;
 import com.lpogifr.paymybuddy.service.TransactionsService;
 import com.lpogifr.paymybuddy.service.UsersService;
-import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
@@ -55,7 +54,7 @@ public class NavController {
   @GetMapping({ "/home", "/" })
   public String home(Model model, Principal principal) {
     userModel = service.findByEmail(principal.getName());
-    model.addAttribute("bankAccount", userModel.getBankAccount());
+    model.addAttribute("account", userModel.getAccount());
     model.addAttribute("transactionList", transactionsService.findByUserId(userModel.getId()));
     return "menu/home";
   }

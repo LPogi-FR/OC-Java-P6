@@ -11,7 +11,7 @@ import org.springframework.util.CollectionUtils;
 @AllArgsConstructor
 public class UserAssembler implements IAssembler<UserEntity, UserModel> {
 
-  private BankAccountAssembler bankAccountAssembler;
+  private AccountAssembler accountAssembler;
   private FriendAssembler friendAssembler;
 
   @Override
@@ -24,7 +24,7 @@ public class UserAssembler implements IAssembler<UserEntity, UserModel> {
       .id(model.getId())
       .email(model.getEmail())
       .password(model.getPassword())
-      .bankAccount(bankAccountAssembler.fromModelToEntity(model.getBankAccount()))
+      .account(accountAssembler.fromModelToEntity(model.getAccount()))
       .friendList(friendAssembler.fromModelListToEntityList(model.getFriendList()))
       .name(model.getName())
       .build();
@@ -38,7 +38,7 @@ public class UserAssembler implements IAssembler<UserEntity, UserModel> {
     return UserModel
       .builder()
       .id(entity.getId())
-      .bankAccount(bankAccountAssembler.fromEntityToModel(entity.getBankAccount()))
+      .account(accountAssembler.fromEntityToModel(entity.getAccount()))
       .friendList(friendAssembler.fromEntityListToModelList(entity.getFriendList()))
       .email(entity.getEmail())
       .password(entity.getPassword())

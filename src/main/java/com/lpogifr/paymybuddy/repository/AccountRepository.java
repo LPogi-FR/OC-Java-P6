@@ -1,16 +1,16 @@
 package com.lpogifr.paymybuddy.repository;
 
-import com.lpogifr.paymybuddy.entity.BankAccountEntity;
+import com.lpogifr.paymybuddy.entity.AccountEntity;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BankAccountRepository extends JpaRepository<BankAccountEntity, Long> {
-  List<BankAccountEntity> findAll();
+public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
+  List<AccountEntity> findAll();
 
-  BankAccountEntity save(BankAccountEntity entity);
+  AccountEntity save(AccountEntity entity);
 
   @Query(value = "delete from UserEntity where id = ?1")
   void deleteById(Long id);

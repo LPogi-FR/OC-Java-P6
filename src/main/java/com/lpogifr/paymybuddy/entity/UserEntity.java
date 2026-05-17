@@ -29,8 +29,8 @@ public class UserEntity implements UserDetails {
   private String password;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "bank_account_id", referencedColumnName = "id")
-  private BankAccountEntity bankAccount;
+  @JoinColumn(name = "account_id", referencedColumnName = "id")
+  private AccountEntity account;
 
   @OneToMany(mappedBy = "friend", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private List<FriendEntity> friendList;

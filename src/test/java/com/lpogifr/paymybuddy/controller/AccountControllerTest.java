@@ -9,9 +9,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.lpogifr.paymybuddy.assembler.BankAccountAssembler;
-import com.lpogifr.paymybuddy.model.BankAccountModel;
-import com.lpogifr.paymybuddy.service.BankAccountService;
+import com.lpogifr.paymybuddy.assembler.AccountAssembler;
+import com.lpogifr.paymybuddy.model.AccountModel;
+import com.lpogifr.paymybuddy.service.AccountService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -19,37 +19,29 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(BankAccountController.class)
-class BankAccountControllerTest {
+@WebMvcTest(AccountController.class)
+class AccountControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
 
   @MockBean
-  private BankAccountService service;
+  private AccountService service;
 
   @MockBean
-  private BankAccountAssembler assembler;
-
-  /*//@SpyBean
-  //private BankAccountController controller;
-
-  @BeforeEach
-  void beforeEach() {
-    MockitoAnnotations.openMocks(this);
-  }*/
+  private AccountAssembler assembler;
 
   @Test
-  void itShouldFindAllBankAccount() throws Exception {
-    mockMvc.perform(get("/bankAccount")).andDo(print()).andExpect(status().isOk());
+  void itShouldFindAllAccount() throws Exception {
+    mockMvc.perform(get("/account")).andDo(print()).andExpect(status().isOk());
     verify(service).findAll();
   }
 
   @Test
   void itShouldSave() throws Exception {
-    BankAccountModel testBankAccount = BankAccountModel.builder().iban("iban").id(1L).bic("bic").balance(100D).build();
+    AccountModel testAccount = AccountModel.builder().id(1L).balance(100D).build();
     mockMvc
-      .perform(post("/bankAccount").content(asJson(testBankAccount)).contentType(MediaType.APPLICATION_JSON_VALUE))
+      .perform(post("/account").content(asJson(testAccount)).contentType(MediaType.APPLICATION_JSON_VALUE))
       .andDo(print())
       .andExpect(status().isCreated());
     //.andExpect(jsonPath("$.id").value(equals(1L)));
@@ -58,12 +50,12 @@ class BankAccountControllerTest {
 
   @Test
   void itShouldUpdate() throws Exception {
-    BankAccountModel testBankAccount = BankAccountModel.builder().iban("iban").id(1L).bic("bic").balance(100D).build();
-    BankAccountModel updatedAccount = BankAccountModel.builder().iban("iban1").id(1L).bic("bic1").balance(105D).build();
+    AccountModel testAccount = AccountModel.builder().id(1L).balance(100D).build();
+    AccountModel updatedAccount = AccountModel.builder().id(1L).balance(105D).build();
     given(service.update(anyLong(), any())).willReturn(updatedAccount);
     mockMvc
       .perform(
-        put("/bankAccount/1L")
+        put("/account/1L")
           .content(asJson(updatedAccount))
           .contentType(MediaType.APPLICATION_JSON_VALUE)
           .accept(MediaType.APPLICATION_JSON)
@@ -76,7 +68,7 @@ class BankAccountControllerTest {
 
   @Test
   void itShouldDelete() throws Exception {
-    mockMvc.perform(delete("/banckAccount/1L")).andDo(print()).andExpect(status().isNoContent());
+    mockMvc.perform(delete("/account/1L")).andDo(print()).andExpect(status().isNoContent());
     verify(service).deleteById(1L);
   }
 }

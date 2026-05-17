@@ -4,7 +4,7 @@ import com.lpogifr.paymybuddy.assembler.TransactionsAssembler;
 import com.lpogifr.paymybuddy.model.TransactionRequestModel;
 import com.lpogifr.paymybuddy.model.TransactionsModel;
 import com.lpogifr.paymybuddy.model.UserModel;
-import com.lpogifr.paymybuddy.service.BankAccountService;
+import com.lpogifr.paymybuddy.service.AccountService;
 import com.lpogifr.paymybuddy.service.TransactionsService;
 import com.lpogifr.paymybuddy.service.UsersService;
 import java.time.LocalDateTime;
@@ -25,7 +25,7 @@ public class TransactionController {
 
   private TransactionsAssembler transactionsAssembler;
   private TransactionsService transactionsService;
-  private BankAccountService bankAccountService;
+  private AccountService accountService;
   private UsersService usersService;
 
   @GetMapping("/transactions")
@@ -39,12 +39,11 @@ public class TransactionController {
     if (model == null) {
       return ResponseEntity.badRequest().build();
     }
-    //!! null pointer verifié si bankaccount est trouvé
-    final var moneyToRecieve = bankAccountService.sendMoney(
-      usersService.findById(model.getUserId()).getBankAccount(),
+    final var moneyToRecieve = accountService.sendMoney(
+      usersService.findById(model.getUserId()).getAccount(),
       model.getAmount()
     );
-    bankAccountService.receivceMoney(usersService.findById(model.getFriendId()).getBankAccount(), moneyToRecieve);
+    accountService.receivceMoney(usersService.findById(model.getFriendId()).getAccount(), moneyToRecieve);
     UserModel userModel = usersService.findById(model.getUserId());
     UserModel friendModel = usersService.findById(model.getFriendId());
     final var response = TransactionsModel

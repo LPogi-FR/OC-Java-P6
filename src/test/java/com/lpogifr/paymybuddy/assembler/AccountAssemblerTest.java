@@ -2,8 +2,8 @@ package com.lpogifr.paymybuddy.assembler;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.lpogifr.paymybuddy.entity.BankAccountEntity;
-import com.lpogifr.paymybuddy.model.BankAccountModel;
+import com.lpogifr.paymybuddy.entity.AccountEntity;
+import com.lpogifr.paymybuddy.model.AccountModel;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -12,34 +12,20 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class BankAccountAssemblerTest {
+class AccountAssemblerTest {
 
   @InjectMocks
-  private BankAccountAssembler assembler;
+  private AccountAssembler assembler;
 
-  private final BankAccountModel model = BankAccountModel
-    .builder()
-    .id(1L)
-    .bic("AZERT")
-    .iban("QSDFG")
-    .balance(200D)
-    .build();
+  private final AccountModel model = AccountModel.builder().id(1L).balance(200D).build();
 
-  private final BankAccountEntity entity = BankAccountEntity
-    .builder()
-    .id(1L)
-    .bic("AZERT")
-    .iban("QSDFG")
-    .balance(200D)
-    .build();
+  private final AccountEntity entity = AccountEntity.builder().id(1L).balance(200D).build();
 
   @Test
   void itShouldFromModelToEntity() {
-    final var bankAccountEntity = assertDoesNotThrow(() -> assembler.fromModelToEntity(model));
-    assertEquals(model.getId(), bankAccountEntity.getId());
-    assertEquals(model.getIban(), bankAccountEntity.getIban());
-    assertEquals(model.getBic(), bankAccountEntity.getBic());
-    assertEquals(model.getBalance(), bankAccountEntity.getBalance());
+    final var AccountEntity = assertDoesNotThrow(() -> assembler.fromModelToEntity(model));
+    assertEquals(model.getId(), AccountEntity.getId());
+    assertEquals(model.getBalance(), AccountEntity.getBalance());
 
     final var entityNull = assertDoesNotThrow(() -> assembler.fromModelToEntity(null));
     assertNull(entityNull);
@@ -47,11 +33,9 @@ class BankAccountAssemblerTest {
 
   @Test
   void itShouldFromEntityToModel() {
-    final var bankAccountModel = assertDoesNotThrow(() -> assembler.fromEntityToModel(entity));
-    assertEquals(entity.getId(), bankAccountModel.getId());
-    assertEquals(entity.getIban(), bankAccountModel.getIban());
-    assertEquals(entity.getBic(), bankAccountModel.getBic());
-    assertEquals(entity.getBalance(), bankAccountModel.getBalance());
+    final var accountModel = assertDoesNotThrow(() -> assembler.fromEntityToModel(entity));
+    assertEquals(entity.getId(), accountModel.getId());
+    assertEquals(entity.getBalance(), accountModel.getBalance());
 
     final var modelNull = assertDoesNotThrow(() -> assembler.fromEntityToModel(null));
     assertNull(modelNull);

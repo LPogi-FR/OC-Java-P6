@@ -16,7 +16,7 @@ public class UserModel {
 
   private String password;
 
-  private BankAccountModel bankAccount;
+  private AccountModel account;
 
   private List<UserModel> friendList;
 

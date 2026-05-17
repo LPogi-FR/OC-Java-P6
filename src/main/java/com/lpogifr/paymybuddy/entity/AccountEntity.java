@@ -9,8 +9,8 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "bank_account")
-public class BankAccountEntity {
+@Table(name = "account")
+public class AccountEntity {
 
   @Id
   @Column(name = "id")
@@ -18,15 +18,9 @@ public class BankAccountEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "bic")
-  private String bic;
-
   @Column(name = "balance")
   private Double balance;
 
-  @Column(name = "iban")
-  private String iban;
-
-  @OneToOne(mappedBy = "bankAccount")
+  @OneToOne(mappedBy = "account")
   private UserEntity users;
 }

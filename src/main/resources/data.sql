@@ -1,16 +1,16 @@
 use db;
 
-insert into bank_account(iban,bic,balance) values('fr0548796264781','1876943264',400);
-insert into bank_account(iban,bic,balance) values('fr0897462187894','1458796354',0);
-insert into bank_account(iban,bic,balance) values('fr0897464844894','14584954854',200);
-insert into bank_account(iban,bic,balance) values('de0897464844894','145887f4854',550);
-insert into bank_account(iban,bic,balance) values('en0897464124894','68789954854',100);
+insert into account(balance) values(400);
+insert into account(balance) values(0);
+insert into account(balance) values(200);
+insert into account(balance) values(550);
+insert into account(balance) values(100);
 
-insert into users(email,password,bank_account_id,name) values('ouioui@email.com','1234567890',1,"Didier");
-insert into users(email,password,bank_account_id,name) values('nonnon@email.com','9876543210',2,"Fernand");
-insert into users(email,password,bank_account_id,name) values('okok@email.com','8576543210',3,"Julie");
-insert into users(email,password,bank_account_id,name) values('quatre@email.com','ouigzeggg',4,"Toun");
-insert into users(email,password,bank_account_id,name) values('cinq@email.com','zguazgqazg',5,"Daniel");
+insert into users(email,password,account_id,name) values('ouioui@email.com','1234567890',1,"Didier");
+insert into users(email,password,account_id,name) values('nonnon@email.com','9876543210',2,"Fernand");
+insert into users(email,password,account_id,name) values('okok@email.com','8576543210',3,"Julie");
+insert into users(email,password,account_id,name) values('quatre@email.com','ouigzeggg',4,"Toun");
+insert into users(email,password,account_id,name) values('cinq@email.com','zguazgqazg',5,"Daniel");
 
 
 insert into friend(user_id,friend_id) values(1,2);

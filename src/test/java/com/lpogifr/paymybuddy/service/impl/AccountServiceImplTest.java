@@ -2,28 +2,21 @@ package com.lpogifr.paymybuddy.service.impl;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 
 import com.lpogifr.paymybuddy.PayMyBuddyAppTest;
-import com.lpogifr.paymybuddy.assembler.BankAccountAssembler;
-import com.lpogifr.paymybuddy.model.BankAccountModel;
-import com.lpogifr.paymybuddy.repository.BankAccountRepository;
+import com.lpogifr.paymybuddy.model.AccountModel;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
 @SpringBootTest(classes = { PayMyBuddyAppTest.class })
 @TestPropertySource(locations = { "classpath:application-test.properties" })
-class BankAccountServiceImplTest {
+class AccountServiceImplTest {
 
   @Autowired
-  private BankAccountServiceImpl service;
+  private AccountServiceImpl service;
 
   @Test
   void itShouldFindAll() {
@@ -34,18 +27,17 @@ class BankAccountServiceImplTest {
   @Test
   void itShouldFindById() {
     final var id = assertDoesNotThrow(() -> service.findById(1L));
-    assertEquals("123", id.getBic());
+    assertEquals(400, id.getBalance());
   }
 
   @Test
   void itShouldSave() {
-    assertDoesNotThrow(() -> service.save(BankAccountModel.builder().build()));
+    assertDoesNotThrow(() -> service.save(AccountModel.builder().build()));
   }
 
   @Test
   void itShouldUpdate() {
-    // Add a bankAccount in DB
-    assertDoesNotThrow(() -> service.update(1L, BankAccountModel.builder().build()));
+    assertDoesNotThrow(() -> service.update(1L, AccountModel.builder().build()));
   }
 
   @Test
@@ -63,7 +55,7 @@ class BankAccountServiceImplTest {
   @Test
   void itShouldReceivceMoney() {
     //Need DB
-    assertDoesNotThrow(() -> service.receivceMoney(BankAccountModel.builder().balance(300D).build(), 200));
+    assertDoesNotThrow(() -> service.receivceMoney(AccountModel.builder().balance(300D).build(), 200));
     //verify(service).update(anyLong(), any());
   }
 }

@@ -1,6 +1,5 @@
 package com.lpogifr.paymybuddy.model;
 
-import com.lpogifr.paymybuddy.entity.UserEntity;
 import lombok.*;
 
 @Getter
@@ -8,14 +7,9 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BankAccountModel {
+public class AccountModel {
 
   private Long id;
 
-  private String bic;
-
   private Double balance;
-
-  private String iban;
-  //private UserEntity users;
 }
