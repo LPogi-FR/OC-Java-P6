@@ -46,7 +46,6 @@ public class TransfertController {
       usersService.findByName(transactionForm.getFriend1()).getBankAccount(),
       moneyToRecieve
     );
-    //UserModel userModel = usersService.findById(transactionForm.getUserId());
     UserModel friendModel = usersService.findByName(transactionForm.getFriend1());
     final var response = TransactionsModel
       .builder()
