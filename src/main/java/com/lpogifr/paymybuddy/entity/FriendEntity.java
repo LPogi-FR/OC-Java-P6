@@ -22,8 +22,6 @@ public class FriendEntity {
   @JoinColumn(name = "friend_id")
   private UserEntity friend;
 
-  private String name;
-
   @EmbeddedId
   private FriendPrimaryKey id;
 }

@@ -1,6 +1,5 @@
 package com.lpogifr.paymybuddy.controller;
 
-import com.lpogifr.paymybuddy.model.FriendModel;
 import com.lpogifr.paymybuddy.model.UserModel;
 import com.lpogifr.paymybuddy.service.FriendService;
 import java.util.List;

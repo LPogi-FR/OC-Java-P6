@@ -1,7 +1,6 @@
 package com.lpogifr.paymybuddy.repository;
 
 import com.lpogifr.paymybuddy.entity.UserEntity;
-import com.lpogifr.paymybuddy.model.UserModel;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

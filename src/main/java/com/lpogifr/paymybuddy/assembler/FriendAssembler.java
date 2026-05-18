@@ -2,7 +2,6 @@ package com.lpogifr.paymybuddy.assembler;
 
 import com.lpogifr.paymybuddy.entity.FriendEntity;
 import com.lpogifr.paymybuddy.entity.UserEntity;
-import com.lpogifr.paymybuddy.model.FriendModel;
 import com.lpogifr.paymybuddy.model.UserModel;
 import java.util.List;
 import org.springframework.stereotype.Component;

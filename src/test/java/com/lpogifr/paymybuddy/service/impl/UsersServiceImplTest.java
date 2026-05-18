@@ -28,16 +28,12 @@ class UsersServiceImplTest {
   @Autowired
   private UsersServiceImpl service;
 
-  //@Autowired
-  //private UserRepositoryCustom userRepositoryCustom;
-
   @Autowired
   private UsersRepository userRepository;
 
   @BeforeEach
   void setUp() {
     this.userRepository.deleteAll();
-    //this.userRepositoryCustom.resetAutoIncrement();
     UserEntity user1 = UserEntity.builder().id(1L).email("Test1").name("Didier").password("1234567890").build();
     this.userRepository.save(user1);
     UserEntity user2 = UserEntity.builder().id(2L).email("Test2").name("Fernand").password("1234567890").build();

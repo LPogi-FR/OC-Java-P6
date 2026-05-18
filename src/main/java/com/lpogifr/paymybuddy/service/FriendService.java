@@ -1,6 +1,5 @@
 package com.lpogifr.paymybuddy.service;
 
-import com.lpogifr.paymybuddy.entity.FriendEntity;
 import com.lpogifr.paymybuddy.entity.UserEntity;
 import java.util.List;
 

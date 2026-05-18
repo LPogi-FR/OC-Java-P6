@@ -1,8 +1,6 @@
 package com.lpogifr.paymybuddy.service.impl;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
 
 import com.lpogifr.paymybuddy.PayMyBuddyAppTest;
 import com.lpogifr.paymybuddy.model.AccountModel;
@@ -47,15 +45,11 @@ class AccountServiceImplTest {
 
   @Test
   void itShouldSendMoney() {
-    //Need DB
     assertDoesNotThrow(() -> service.sendMoney(service.findById(1L), 200));
-    //verify(service).update(anyLong(), any());
   }
 
   @Test
   void itShouldReceivceMoney() {
-    //Need DB
     assertDoesNotThrow(() -> service.receivceMoney(AccountModel.builder().balance(300D).build(), 200));
-    //verify(service).update(anyLong(), any());
   }
 }

@@ -1,6 +1,5 @@
 package com.lpogifr.paymybuddy.front.form;
 
-import com.lpogifr.paymybuddy.model.UserModel;
 import lombok.Getter;
 import lombok.Setter;
 
