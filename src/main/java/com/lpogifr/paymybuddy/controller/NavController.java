@@ -1,6 +1,6 @@
 package com.lpogifr.paymybuddy.controller;
 
-import com.lpogifr.paymybuddy.front.form.NewFriendForm;
+import com.lpogifr.paymybuddy.front.form.NewreceiverForm;
 import com.lpogifr.paymybuddy.front.form.RegisterForm;
 import com.lpogifr.paymybuddy.front.form.TransactionForm;
 import com.lpogifr.paymybuddy.model.UserModel;
@@ -42,11 +42,11 @@ public class NavController {
       userModel = service.findByEmail(principal.getName());
     }
     TransactionForm transactionForm = new TransactionForm();
-    NewFriendForm friendForm = new NewFriendForm();
+    NewreceiverForm receiverForm = new NewreceiverForm();
     List<UserModel> otherUsers = service.findOtherUSers(userModel.getId());
     model.addAttribute("user", userModel);
     model.addAttribute("transactionForm", transactionForm);
-    model.addAttribute("friendForm", friendForm);
+    model.addAttribute("receiverForm", receiverForm);
     model.addAttribute("otherUsers", otherUsers);
     return "menu/transfert";
   }

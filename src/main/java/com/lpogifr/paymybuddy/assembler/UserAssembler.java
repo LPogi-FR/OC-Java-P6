@@ -12,7 +12,7 @@ import org.springframework.util.CollectionUtils;
 public class UserAssembler implements IAssembler<UserEntity, UserModel> {
 
   private AccountAssembler accountAssembler;
-  private FriendAssembler friendAssembler;
+  private ReceiverAssembler receiverAssembler;
 
   @Override
   public UserEntity fromModelToEntity(UserModel model) {
@@ -25,7 +25,7 @@ public class UserAssembler implements IAssembler<UserEntity, UserModel> {
       .email(model.getEmail())
       .password(model.getPassword())
       .account(accountAssembler.fromModelToEntity(model.getAccount()))
-      .friendList(friendAssembler.fromModelListToEntityList(model.getFriendList()))
+      .receiverList(receiverAssembler.fromModelListToEntityList(model.getReceiverList()))
       .name(model.getName())
       .build();
   }
@@ -39,7 +39,7 @@ public class UserAssembler implements IAssembler<UserEntity, UserModel> {
       .builder()
       .id(entity.getId())
       .account(accountAssembler.fromEntityToModel(entity.getAccount()))
-      .friendList(friendAssembler.fromEntityListToModelList(entity.getFriendList()))
+      .receiverList(receiverAssembler.fromEntityListToModelList(entity.getReceiverList()))
       .email(entity.getEmail())
       .password(entity.getPassword())
       .name(entity.getName())

@@ -9,8 +9,8 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "friend")
-public class FriendEntity {
+@Table(name = "receiver")
+public class ReceiverEntity {
 
   @ManyToOne
   @MapsId("userId")
@@ -18,10 +18,10 @@ public class FriendEntity {
   private UserEntity user;
 
   @ManyToOne
-  @MapsId("friendId")
-  @JoinColumn(name = "friend_id")
-  private UserEntity friend;
+  @MapsId("receiverId")
+  @JoinColumn(name = "receiver_id")
+  private UserEntity receiver;
 
   @EmbeddedId
-  private FriendPrimaryKey id;
+  private ReceiverPrimaryKey id;
 }

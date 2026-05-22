@@ -58,14 +58,14 @@ public class UsersController {
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 
-  @PostMapping("/users/{id}/friend")
-  public ResponseEntity<UserModel> addFriend(@PathVariable Long id, @RequestBody final Long friendId) {
+  @PostMapping("/users/{id}/receiver")
+  public ResponseEntity<UserModel> addreceiver(@PathVariable Long id, @RequestBody final Long receiverId) {
     if (usersService.findById(id) == null) {
       return ResponseEntity.notFound().build();
     }
-    final var response = usersService.addFriend(id, friendId);
-    //find friend(user) by id
-    //add friend to user
+    final var response = usersService.addreceiver(id, receiverId);
+    //find receiver(user) by id
+    //add receiver to user
 
     return new ResponseEntity<>(response, HttpStatus.OK);
   }

@@ -30,14 +30,14 @@
 </div>
 <div align="right">
     <div  align="center" class="form">
-        <h1> Add Friend</h1>
-        <form method="post" th:action="@{/transfert/newFriend}" th:object="${friendForm}">
-            <label> Add friend</label>
+        <h1> Add receiver</h1>
+        <form method="post" th:action="@{/transfert/newreceiver}" th:object="${receiverForm}">
+            <label> Add receiver</label>
             <select th:field="*{email}" >
-                <option th:each="friend:${otherUsers}" th:value="${friend.email}" th:text="${friend.name}"></option>
+                <option th:each="receiver:${otherUsers}" th:value="${receiver.email}" th:text="${receiver.name}"></option>
             </select>
             <br>
-            <input type="submit" value="Add friend">
+            <input type="submit" value="Add receiver">
             <br>
         </form>
 
@@ -56,10 +56,10 @@
             <label>Amount to send :</label>
             <input id="amount" PLACEHOLDER="Enter Amount" required type="number" th:field="*{amount}"/>
             <br>
-            <label>Select Friend : </label>
+            <label>Select receiver : </label>
 
-            <select th:field="*{friend1}" id="friend">
-                <option th:each="friend:${user.friendList}" th:value="${friend.name}" th:text="${friend.name}"></option>
+            <select th:field="*{receiverName}" id="receiver">
+                <option th:each="receiver:${user.receiverList}" th:value="${receiver.name}" th:text="${receiver.name}"></option>
             </select>
             <br>
             <input type="submit" value="Transfert money">

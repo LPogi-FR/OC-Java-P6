@@ -32,8 +32,8 @@ public class UserEntity implements UserDetails {
   @JoinColumn(name = "account_id", referencedColumnName = "id")
   private AccountEntity account;
 
-  @OneToMany(mappedBy = "friend", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  private List<FriendEntity> friendList;
+  @OneToMany(mappedBy = "receiver", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  private List<ReceiverEntity> receiverList;
 
   @Column(name = "name")
   private String name;

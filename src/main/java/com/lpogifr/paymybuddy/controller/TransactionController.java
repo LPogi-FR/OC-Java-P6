@@ -43,13 +43,13 @@ public class TransactionController {
       usersService.findById(model.getUserId()).getAccount(),
       model.getAmount()
     );
-    accountService.receivceMoney(usersService.findById(model.getFriendId()).getAccount(), moneyToRecieve);
+    accountService.receivceMoney(usersService.findById(model.getReceiverId()).getAccount(), moneyToRecieve);
     UserModel userModel = usersService.findById(model.getUserId());
-    UserModel friendModel = usersService.findById(model.getFriendId());
+    UserModel receiverModel = usersService.findById(model.getReceiverId());
     final var response = TransactionsModel
       .builder()
       .user(userModel)
-      .friend(friendModel)
+      .receiver(receiverModel)
       .execTime(LocalDateTime.now())
       .amount(model.getAmount())
       .build();

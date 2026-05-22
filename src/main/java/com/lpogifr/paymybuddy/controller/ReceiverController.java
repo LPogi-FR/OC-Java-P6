@@ -1,7 +1,7 @@
 package com.lpogifr.paymybuddy.controller;
 
 import com.lpogifr.paymybuddy.model.UserModel;
-import com.lpogifr.paymybuddy.service.FriendService;
+import com.lpogifr.paymybuddy.service.ReceiverService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @AllArgsConstructor
-public class FriendController {
+public class ReceiverController {
 
-  private final FriendService friendService;
+  private final ReceiverService receiverService;
 
-  @GetMapping("/friend")
-  public ResponseEntity<List<UserModel>> findAllFriend() {
-    //List<UserModel> response = assembler.userEntityToModel(friendService.findAll());
+  @GetMapping("/receiver")
+  public ResponseEntity<List<UserModel>> findAllreceiver() {
+    //List<UserModel> response = assembler.userEntityToModel(receiverService.findAll());
     return new ResponseEntity<>(HttpStatus.OK);
   }
 }

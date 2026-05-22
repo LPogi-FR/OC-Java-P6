@@ -38,12 +38,12 @@
     <tr>
         <th scope="col"> Description</th>
         <th scope="col"> Amount</th>
-        <th scope="col"> Friend Name</th>
+        <th scope="col"> receiver Name</th>
     </tr>
     <tr th:each="transactions:${transactionList}">
         <td th:text="${transactions.description}"></td>
         <td th:text="${transactions.amount}"></td>
-        <td th:text="${transactions.friend.name}"></td>
+        <td th:text="${transactions.receiver.name}"></td>
     </tr>
 </table>
 

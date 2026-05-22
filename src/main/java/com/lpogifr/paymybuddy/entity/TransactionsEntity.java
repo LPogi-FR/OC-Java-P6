@@ -24,8 +24,8 @@ public class TransactionsEntity {
   private UserEntity user;
 
   @ManyToOne
-  @JoinColumn(name = "friend_id", referencedColumnName = "id")
-  private UserEntity friend;
+  @JoinColumn(name = "receiver_id", referencedColumnName = "id")
+  private UserEntity receiver;
 
   private double amount;
 

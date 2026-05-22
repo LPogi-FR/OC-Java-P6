@@ -43,9 +43,9 @@
             <label> Balance :</label>
             <label th:text="${user.account.balance}"> </label>
             <br>
-            <label> FriendList :</label>
-            <div th:each="friend:${user.friendList}">
-                <label th:text="${friend.name}"> </label>
+            <label> receiverList :</label>
+            <div th:each="receiver:${user.receiverList}">
+                <label th:text="${receiver.name}"> </label>
             </div>
             <br>
         </div>

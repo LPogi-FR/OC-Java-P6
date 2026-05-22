@@ -21,7 +21,7 @@ public interface UsersService {
 
   UserModel update(Long id, UserModel updatedUser);
 
-  UserModel addFriend(Long id, Long friendId);
+  UserModel addreceiver(Long id, Long receiverId);
 
   List<UserModel> findOtherUSers(Long userId);
 }

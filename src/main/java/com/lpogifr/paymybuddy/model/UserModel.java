@@ -18,7 +18,7 @@ public class UserModel {
 
   private AccountModel account;
 
-  private List<UserModel> friendList;
+  private List<UserModel> receiverList;
 
   private String name;
 }

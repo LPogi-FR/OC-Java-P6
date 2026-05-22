@@ -3,12 +3,12 @@ package com.lpogifr.paymybuddy.service.impl;
 import com.lpogifr.paymybuddy.assembler.AccountAssembler;
 import com.lpogifr.paymybuddy.assembler.UserAssembler;
 import com.lpogifr.paymybuddy.entity.AccountEntity;
-import com.lpogifr.paymybuddy.entity.FriendEntity;
-import com.lpogifr.paymybuddy.entity.FriendPrimaryKey;
+import com.lpogifr.paymybuddy.entity.ReceiverEntity;
+import com.lpogifr.paymybuddy.entity.ReceiverPrimaryKey;
 import com.lpogifr.paymybuddy.entity.UserEntity;
 import com.lpogifr.paymybuddy.model.UserModel;
 import com.lpogifr.paymybuddy.repository.AccountRepository;
-import com.lpogifr.paymybuddy.repository.FriendRepository;
+import com.lpogifr.paymybuddy.repository.ReceiverRepository;
 import com.lpogifr.paymybuddy.repository.UsersRepository;
 import com.lpogifr.paymybuddy.service.UsersService;
 import java.util.List;
@@ -27,7 +27,7 @@ public class UsersServiceImpl implements UsersService {
 
   private final AccountRepository accountRepository;
 
-  private final FriendRepository friendRepository;
+  private final ReceiverRepository receiverRepository;
 
   private final UserAssembler assembler;
 
@@ -97,20 +97,20 @@ public class UsersServiceImpl implements UsersService {
   }
 
   @Override
-  public UserModel addFriend(Long id, Long friendId) {
+  public UserModel addreceiver(Long id, Long receiverId) {
     Optional<UserEntity> response = null;
     UserEntity userEntity = repository.findById(id).orElse(null);
-    UserEntity newFriend = repository.findById(friendId).orElse(null);
+    UserEntity newreceiver = repository.findById(receiverId).orElse(null);
     if (userEntity != null) {
-      final var newFriendEntity = new FriendEntity()
+      final var newreceiverEntity = new ReceiverEntity()
         .builder()
-        .id(FriendPrimaryKey.builder().userId(userEntity.getId()).friendId(newFriend.getId()).build())
+        .id(ReceiverPrimaryKey.builder().userId(userEntity.getId()).receiverId(newreceiver.getId()).build())
         .user(userEntity)
-        .friend(newFriend)
+        .receiver(newreceiver)
         .build();
-      List<FriendEntity> friendEntityList = userEntity.getFriendList();
-      friendRepository.save(newFriendEntity);
-      //userEntity.setFriendList(friendEntityList);
+      List<ReceiverEntity> receiverEntityList = userEntity.getReceiverList();
+      receiverRepository.save(newreceiverEntity);
+      //userEntity.setreceiverList(receiverEntityList);
       response = repository.findById(id);
     }
     return assembler.fromEntityToModel(response.orElse(null));

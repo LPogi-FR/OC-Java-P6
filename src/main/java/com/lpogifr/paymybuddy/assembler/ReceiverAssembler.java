@@ -1,6 +1,6 @@
 package com.lpogifr.paymybuddy.assembler;
 
-import com.lpogifr.paymybuddy.entity.FriendEntity;
+import com.lpogifr.paymybuddy.entity.ReceiverEntity;
 import com.lpogifr.paymybuddy.entity.UserEntity;
 import com.lpogifr.paymybuddy.model.UserModel;
 import java.util.List;
@@ -8,19 +8,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 @Component
-public class FriendAssembler implements IAssembler<FriendEntity, UserModel> {
+public class ReceiverAssembler implements IAssembler<ReceiverEntity, UserModel> {
 
   @Override
-  public FriendEntity fromModelToEntity(UserModel model) {
+  public ReceiverEntity fromModelToEntity(UserModel model) {
     if (model == null) {
       return null;
     }
     var userEntity = UserEntity.builder().id(model.getId()).build();
-    return FriendEntity.builder().friend(userEntity).build();
+    return ReceiverEntity.builder().receiver(userEntity).build();
   }
 
   @Override
-  public UserModel fromEntityToModel(FriendEntity entity) {
+  public UserModel fromEntityToModel(ReceiverEntity entity) {
     if (entity == null) {
       return null;
     }
@@ -28,7 +28,7 @@ public class FriendAssembler implements IAssembler<FriendEntity, UserModel> {
   }
 
   @Override
-  public List<FriendEntity> fromModelListToEntityList(List<UserModel> modelList) {
+  public List<ReceiverEntity> fromModelListToEntityList(List<UserModel> modelList) {
     if (CollectionUtils.isEmpty(modelList)) {
       return null;
     }
@@ -36,7 +36,7 @@ public class FriendAssembler implements IAssembler<FriendEntity, UserModel> {
   }
 
   @Override
-  public List<UserModel> fromEntityListToModelList(List<FriendEntity> entityList) {
+  public List<UserModel> fromEntityListToModelList(List<ReceiverEntity> entityList) {
     if (CollectionUtils.isEmpty(entityList)) {
       return null;
     }

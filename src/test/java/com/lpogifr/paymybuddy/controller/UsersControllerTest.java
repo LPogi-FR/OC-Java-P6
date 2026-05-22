@@ -53,7 +53,7 @@ class UsersControllerTest {
       .email("email")
       .id(1L)
       .password("password")
-      .friendList(Collections.emptyList())
+      .receiverList(Collections.emptyList())
       .build();
     mockMvc
       .perform(post("/users").content(asJson(model)).contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -75,8 +75,8 @@ class UsersControllerTest {
   }
 
   @Test
-  void itShouldAddFriend() throws Exception {
+  void itShouldAddreceiver() throws Exception {
     mockMvc.perform(get("/users")).andDo(print()).andExpect(status().isOk());
-    verify(service).addFriend(anyLong(), any());
+    verify(service).addreceiver(anyLong(), any());
   }
 }

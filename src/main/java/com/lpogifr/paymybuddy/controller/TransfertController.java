@@ -2,7 +2,7 @@ package com.lpogifr.paymybuddy.controller;
 
 import com.lpogifr.paymybuddy.assembler.UserAssembler;
 import com.lpogifr.paymybuddy.entity.UserEntity;
-import com.lpogifr.paymybuddy.front.form.NewFriendForm;
+import com.lpogifr.paymybuddy.front.form.NewreceiverForm;
 import com.lpogifr.paymybuddy.front.form.TransactionForm;
 import com.lpogifr.paymybuddy.model.TransactionsModel;
 import com.lpogifr.paymybuddy.model.UserModel;
@@ -39,12 +39,15 @@ public class TransfertController {
   ) {
     UserModel userModel = assembler.fromEntityToModel(((UserEntity) userDetails));
     final var moneyToRecieve = accountService.sendMoney(userModel.getAccount(), transactionForm.getAmount());
-    accountService.receivceMoney(usersService.findByName(transactionForm.getFriend1()).getAccount(), moneyToRecieve);
-    UserModel friendModel = usersService.findByName(transactionForm.getFriend1());
+    accountService.receivceMoney(
+      usersService.findByName(transactionForm.getReceiverName()).getAccount(),
+      moneyToRecieve
+    );
+    UserModel receiverModel = usersService.findByName(transactionForm.getReceiverName());
     final var response = TransactionsModel
       .builder()
       .user(userModel)
-      .friend(friendModel)
+      .receiver(receiverModel)
       .execTime(LocalDateTime.now())
       .amount(transactionForm.getAmount())
       .description(transactionForm.getDescription())
@@ -53,11 +56,11 @@ public class TransfertController {
     return "redirect:/index";
   }
 
-  @RequestMapping(value = "/newFriend", method = RequestMethod.POST)
-  public String addFriend(Model model, @ModelAttribute NewFriendForm friendForm, HttpSession session) {
+  @RequestMapping(value = "/newreceiver", method = RequestMethod.POST)
+  public String addreceiver(Model model, @ModelAttribute NewreceiverForm receiverForm, HttpSession session) {
     UserModel userModel = (UserModel) session.getAttribute("userModel");
 
-    usersService.addFriend(1L, usersService.findByEmail(friendForm.getEmail()).getId());
+    usersService.addreceiver(1L, usersService.findByEmail(receiverForm.getEmail()).getId());
     return "redirect:/index";
   }
   /*

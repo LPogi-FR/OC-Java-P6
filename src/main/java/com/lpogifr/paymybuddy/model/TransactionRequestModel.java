@@ -8,6 +8,6 @@ import lombok.Setter;
 public class TransactionRequestModel {
 
   private Long userId;
-  private Long friendId;
+  private Long receiverId;
   private double amount;
 }

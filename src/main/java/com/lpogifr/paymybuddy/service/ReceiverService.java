@@ -3,10 +3,10 @@ package com.lpogifr.paymybuddy.service;
 import com.lpogifr.paymybuddy.entity.UserEntity;
 import java.util.List;
 
-public interface FriendService {
+public interface ReceiverService {
   /**
-   * Find all Friend in Database
-   * @return List<FriendEntity>
+   * Find all receiver in Database
+   * @return List<receiverEntity>
    */
   List<UserEntity> findAll();
 }

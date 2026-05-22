@@ -107,8 +107,8 @@ class UsersServiceImplTest {
   }
 
   @Test
-  void itShouldAddFriend() {
-    assertDoesNotThrow(() -> service.addFriend(1L, 3L));
-    assertEquals(1, service.findById(1L).getFriendList().size());
+  void itShouldAddreceiver() {
+    assertDoesNotThrow(() -> service.addreceiver(1L, 3L));
+    assertEquals(1, service.findById(1L).getreceiverList().size());
   }
 }

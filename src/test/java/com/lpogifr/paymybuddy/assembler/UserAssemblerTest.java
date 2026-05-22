@@ -25,7 +25,7 @@ class UserAssemblerTest {
     .password("password")
     .email("email")
     .account(AccountModel.builder().build())
-    .friendList(Collections.emptyList())
+    .receiverList(Collections.emptyList())
     .build();
 
   private final UserEntity entity = UserEntity
@@ -34,7 +34,7 @@ class UserAssemblerTest {
     .password("password")
     .email("email")
     .account(AccountEntity.builder().build())
-    .friendList(Collections.emptyList())
+    .receiverList(Collections.emptyList())
     .build();
 
   @Test

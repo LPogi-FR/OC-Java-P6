@@ -10,6 +10,6 @@ public class TransactionForm {
   private String description;
   private double amount;
   private Long userId;
-  private Long friendId;
-  private String friend1;
+  private Long receiverId;
+  private String receiverName;
 }

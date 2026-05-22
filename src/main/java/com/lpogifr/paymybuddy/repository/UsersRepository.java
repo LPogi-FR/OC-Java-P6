@@ -20,7 +20,7 @@ public interface UsersRepository extends JpaRepository<UserEntity, Long> {
   UserEntity findByName(String name);
 
   @Query(
-    value = "select * from USERS where id not in (select friend_id from friend where user_id = ?1) AND id <> ?1",
+    value = "select * from USERS where id not in (select receiver_id from receiver where user_id = ?1) AND id <> ?1",
     nativeQuery = true
   )
   List<UserEntity> findOtheUser(Long userId);

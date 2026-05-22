@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-public class FriendPrimaryKey {
+public class ReceiverPrimaryKey {
 
   @Column(name = "user_id", insertable = false, updatable = false)
   private Long userId;
 
-  @Column(name = "friend_id", insertable = false, updatable = false)
-  private Long friendId;
+  @Column(name = "receiver_id", insertable = false, updatable = false)
+  private Long receiverId;
 }

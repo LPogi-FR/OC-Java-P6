@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class NewFriendForm {
+public class NewreceiverForm {
 
   private String email;
 }

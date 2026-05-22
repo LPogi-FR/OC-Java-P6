@@ -1,6 +1,6 @@
 package com.lpogifr.paymybuddy.model;
 
-import com.lpogifr.paymybuddy.entity.FriendPrimaryKey;
+import com.lpogifr.paymybuddy.entity.ReceiverPrimaryKey;
 import lombok.*;
 
 @Getter
@@ -8,13 +8,13 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FriendModel {
+public class ReceiverModel {
 
-  private UserModel friend;
+  private UserModel receiver;
 
   private UserModel user;
 
-  private FriendPrimaryKey id;
+  private ReceiverPrimaryKey id;
 
   private String name;
 }

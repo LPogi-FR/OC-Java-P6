@@ -14,7 +14,7 @@ public class TransactionsModel {
 
   private UserModel user;
 
-  private UserModel friend;
+  private UserModel receiver;
 
   private double amount;
 
