@@ -20,12 +20,12 @@ public class TransactionsEntity {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "user_id", referencedColumnName = "id")
-  private UserEntity user;
+  @JoinColumn(name = "sender_id", referencedColumnName = "id")
+  private SenderEntity sender;
 
   @ManyToOne
   @JoinColumn(name = "receiver_id", referencedColumnName = "id")
-  private UserEntity receiver;
+  private SenderEntity receiver;
 
   private double amount;
 

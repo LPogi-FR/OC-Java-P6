@@ -10,9 +10,9 @@ import lombok.*;
 @AllArgsConstructor
 public class ReceiverModel {
 
-  private UserModel receiver;
+  private SenderModel receiver;
 
-  private UserModel user;
+  private SenderModel sender;
 
   private ReceiverPrimaryKey id;
 

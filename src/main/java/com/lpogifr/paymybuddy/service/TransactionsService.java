@@ -9,5 +9,5 @@ public interface TransactionsService {
 
   TransactionsModel save(TransactionsModel newTransactions);
 
-  List<TransactionsEntity> findByUserId(Long UserId);
+  List<TransactionsEntity> findBySenderId(Long SenderId);
 }

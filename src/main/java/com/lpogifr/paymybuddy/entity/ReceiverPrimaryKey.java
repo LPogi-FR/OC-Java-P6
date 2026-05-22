@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReceiverPrimaryKey {
 
-  @Column(name = "user_id", insertable = false, updatable = false)
-  private Long userId;
+  @Column(name = "sender_id", insertable = false, updatable = false)
+  private Long senderId;
 
   @Column(name = "receiver_id", insertable = false, updatable = false)
   private Long receiverId;

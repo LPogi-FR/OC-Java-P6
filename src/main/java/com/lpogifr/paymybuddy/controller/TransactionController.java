@@ -1,12 +1,12 @@
 package com.lpogifr.paymybuddy.controller;
 
 import com.lpogifr.paymybuddy.assembler.TransactionsAssembler;
+import com.lpogifr.paymybuddy.model.SenderModel;
 import com.lpogifr.paymybuddy.model.TransactionRequestModel;
 import com.lpogifr.paymybuddy.model.TransactionsModel;
-import com.lpogifr.paymybuddy.model.UserModel;
 import com.lpogifr.paymybuddy.service.AccountService;
+import com.lpogifr.paymybuddy.service.SendersService;
 import com.lpogifr.paymybuddy.service.TransactionsService;
-import com.lpogifr.paymybuddy.service.UsersService;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -26,7 +26,7 @@ public class TransactionController {
   private TransactionsAssembler transactionsAssembler;
   private TransactionsService transactionsService;
   private AccountService accountService;
-  private UsersService usersService;
+  private SendersService sendersService;
 
   @GetMapping("/transactions")
   public ResponseEntity<List<TransactionsModel>> findAllTransactions() {
@@ -40,15 +40,15 @@ public class TransactionController {
       return ResponseEntity.badRequest().build();
     }
     final var moneyToRecieve = accountService.sendMoney(
-      usersService.findById(model.getUserId()).getAccount(),
+      sendersService.findById(model.getSenderId()).getAccount(),
       model.getAmount()
     );
-    accountService.receivceMoney(usersService.findById(model.getReceiverId()).getAccount(), moneyToRecieve);
-    UserModel userModel = usersService.findById(model.getUserId());
-    UserModel receiverModel = usersService.findById(model.getReceiverId());
+    accountService.receivceMoney(sendersService.findById(model.getReceiverId()).getAccount(), moneyToRecieve);
+    SenderModel senderModel = sendersService.findById(model.getSenderId());
+    SenderModel receiverModel = sendersService.findById(model.getReceiverId());
     final var response = TransactionsModel
       .builder()
-      .user(userModel)
+      .sender(senderModel)
       .receiver(receiverModel)
       .execTime(LocalDateTime.now())
       .amount(model.getAmount())

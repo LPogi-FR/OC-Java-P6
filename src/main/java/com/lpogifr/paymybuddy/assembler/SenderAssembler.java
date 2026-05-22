@@ -1,7 +1,7 @@
 package com.lpogifr.paymybuddy.assembler;
 
-import com.lpogifr.paymybuddy.entity.UserEntity;
-import com.lpogifr.paymybuddy.model.UserModel;
+import com.lpogifr.paymybuddy.entity.SenderEntity;
+import com.lpogifr.paymybuddy.model.SenderModel;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -9,17 +9,17 @@ import org.springframework.util.CollectionUtils;
 
 @Component
 @AllArgsConstructor
-public class UserAssembler implements IAssembler<UserEntity, UserModel> {
+public class SenderAssembler implements IAssembler<SenderEntity, SenderModel> {
 
   private AccountAssembler accountAssembler;
   private ReceiverAssembler receiverAssembler;
 
   @Override
-  public UserEntity fromModelToEntity(UserModel model) {
+  public SenderEntity fromModelToEntity(SenderModel model) {
     if (model == null) {
       return null;
     }
-    return UserEntity
+    return SenderEntity
       .builder()
       .id(model.getId())
       .email(model.getEmail())
@@ -31,11 +31,11 @@ public class UserAssembler implements IAssembler<UserEntity, UserModel> {
   }
 
   @Override
-  public UserModel fromEntityToModel(UserEntity entity) {
+  public SenderModel fromEntityToModel(SenderEntity entity) {
     if (entity == null) {
       return null;
     }
-    return UserModel
+    return SenderModel
       .builder()
       .id(entity.getId())
       .account(accountAssembler.fromEntityToModel(entity.getAccount()))
@@ -47,7 +47,7 @@ public class UserAssembler implements IAssembler<UserEntity, UserModel> {
   }
 
   @Override
-  public List<UserEntity> fromModelListToEntityList(List<UserModel> modelList) {
+  public List<SenderEntity> fromModelListToEntityList(List<SenderModel> modelList) {
     if (CollectionUtils.isEmpty(modelList)) {
       return null;
     }
@@ -55,7 +55,7 @@ public class UserAssembler implements IAssembler<UserEntity, UserModel> {
   }
 
   @Override
-  public List<UserModel> fromEntityListToModelList(List<UserEntity> entityList) {
+  public List<SenderModel> fromEntityListToModelList(List<SenderEntity> entityList) {
     if (CollectionUtils.isEmpty(entityList)) {
       return null;
     }

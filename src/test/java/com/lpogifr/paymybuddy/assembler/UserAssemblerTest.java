@@ -3,9 +3,9 @@ package com.lpogifr.paymybuddy.assembler;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.lpogifr.paymybuddy.entity.AccountEntity;
-import com.lpogifr.paymybuddy.entity.UserEntity;
+import com.lpogifr.paymybuddy.entity.SenderEntity;
 import com.lpogifr.paymybuddy.model.AccountModel;
-import com.lpogifr.paymybuddy.model.UserModel;
+import com.lpogifr.paymybuddy.model.SenderModel;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -14,12 +14,12 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class UserAssemblerTest {
+class SenderAssemblerTest {
 
   @InjectMocks
-  private UserAssembler assembler;
+  private SenderAssembler assembler;
 
-  private final UserModel model = UserModel
+  private final SenderModel model = SenderModel
     .builder()
     .id(1L)
     .password("password")
@@ -28,7 +28,7 @@ class UserAssemblerTest {
     .receiverList(Collections.emptyList())
     .build();
 
-  private final UserEntity entity = UserEntity
+  private final SenderEntity entity = SenderEntity
     .builder()
     .id(1L)
     .password("password")
@@ -39,20 +39,20 @@ class UserAssemblerTest {
 
   @Test
   void itShouldFromModelToEntity() {
-    final var userEntity = assertDoesNotThrow(() -> assembler.fromModelToEntity(model));
-    assertEquals(model.getId(), userEntity.getId());
-    assertEquals(model.getPassword(), userEntity.getPassword());
-    assertEquals(model.getEmail(), userEntity.getEmail());
+    final var senderEntity = assertDoesNotThrow(() -> assembler.fromModelToEntity(model));
+    assertEquals(model.getId(), senderEntity.getId());
+    assertEquals(model.getPassword(), senderEntity.getPassword());
+    assertEquals(model.getEmail(), senderEntity.getEmail());
     final var entityNull = assertDoesNotThrow(() -> assembler.fromModelToEntity(null));
     assertNull(entityNull);
   }
 
   @Test
   void itShouldFromEntityToModel() {
-    final var userModel = assertDoesNotThrow(() -> assembler.fromEntityToModel(entity));
-    assertEquals(entity.getId(), userModel.getId());
-    assertEquals(entity.getPassword(), userModel.getPassword());
-    assertEquals(entity.getEmail(), userModel.getEmail());
+    final var senderModel = assertDoesNotThrow(() -> assembler.fromEntityToModel(entity));
+    assertEquals(entity.getId(), senderModel.getId());
+    assertEquals(entity.getPassword(), senderModel.getPassword());
+    assertEquals(entity.getEmail(), senderModel.getEmail());
     final var entityNull = assertDoesNotThrow(() -> assembler.fromModelToEntity(null));
     assertNull(entityNull);
   }

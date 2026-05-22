@@ -1,14 +1,14 @@
 package com.lpogifr.paymybuddy.controller;
 
-import com.lpogifr.paymybuddy.assembler.UserAssembler;
-import com.lpogifr.paymybuddy.entity.UserEntity;
+import com.lpogifr.paymybuddy.assembler.SenderAssembler;
+import com.lpogifr.paymybuddy.entity.SenderEntity;
 import com.lpogifr.paymybuddy.front.form.NewreceiverForm;
 import com.lpogifr.paymybuddy.front.form.TransactionForm;
+import com.lpogifr.paymybuddy.model.SenderModel;
 import com.lpogifr.paymybuddy.model.TransactionsModel;
-import com.lpogifr.paymybuddy.model.UserModel;
 import com.lpogifr.paymybuddy.service.AccountService;
+import com.lpogifr.paymybuddy.service.SendersService;
 import com.lpogifr.paymybuddy.service.TransactionsService;
-import com.lpogifr.paymybuddy.service.UsersService;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -27,8 +27,8 @@ public class TransfertController {
 
   private final TransactionsService transactionsService;
   private final AccountService accountService;
-  private final UsersService usersService;
-  private final UserAssembler assembler;
+  private final SendersService sendersService;
+  private final SenderAssembler assembler;
 
   @RequestMapping(value = "/", method = RequestMethod.POST)
   public String createTransfert(
@@ -37,16 +37,16 @@ public class TransfertController {
     HttpSession session,
     @AuthenticationPrincipal UserDetails userDetails
   ) {
-    UserModel userModel = assembler.fromEntityToModel(((UserEntity) userDetails));
-    final var moneyToRecieve = accountService.sendMoney(userModel.getAccount(), transactionForm.getAmount());
+    SenderModel senderModel = assembler.fromEntityToModel(((SenderEntity) userDetails));
+    final var moneyToRecieve = accountService.sendMoney(senderModel.getAccount(), transactionForm.getAmount());
     accountService.receivceMoney(
-      usersService.findByName(transactionForm.getReceiverName()).getAccount(),
+      sendersService.findByName(transactionForm.getReceiverName()).getAccount(),
       moneyToRecieve
     );
-    UserModel receiverModel = usersService.findByName(transactionForm.getReceiverName());
+    SenderModel receiverModel = sendersService.findByName(transactionForm.getReceiverName());
     final var response = TransactionsModel
       .builder()
-      .user(userModel)
+      .sender(senderModel)
       .receiver(receiverModel)
       .execTime(LocalDateTime.now())
       .amount(transactionForm.getAmount())
@@ -58,9 +58,9 @@ public class TransfertController {
 
   @RequestMapping(value = "/newreceiver", method = RequestMethod.POST)
   public String addreceiver(Model model, @ModelAttribute NewreceiverForm receiverForm, HttpSession session) {
-    UserModel userModel = (UserModel) session.getAttribute("userModel");
+    SenderModel senderModel = (SenderModel) session.getAttribute("senderModel");
 
-    usersService.addreceiver(1L, usersService.findByEmail(receiverForm.getEmail()).getId());
+    sendersService.addreceiver(1L, sendersService.findByEmail(receiverForm.getEmail()).getId());
     return "redirect:/index";
   }
   /*

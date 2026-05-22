@@ -1,5 +1,5 @@
 var  xmlhttp  = new XMLHttpRequest();
-xmlhttp.open("GET","/users");
+xmlhttp.open("GET","/senders");
 xmlhttp.responseType="json";
 xmlhttp.send()
 

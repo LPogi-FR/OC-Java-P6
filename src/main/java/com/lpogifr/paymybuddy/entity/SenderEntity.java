@@ -13,8 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
-public class UserEntity implements UserDetails {
+@Table(name = "senders")
+public class SenderEntity implements UserDetails {
 
   @Id
   @Column(name = "id", insertable = false, updatable = false)

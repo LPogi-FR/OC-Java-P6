@@ -12,6 +12,6 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
 
   AccountEntity save(AccountEntity entity);
 
-  @Query(value = "delete from UserEntity where id = ?1")
+  @Query(value = "delete from SenderEntity where id = ?1")
   void deleteById(Long id);
 }

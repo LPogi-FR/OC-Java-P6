@@ -22,5 +22,5 @@ public class AccountEntity {
   private Double balance;
 
   @OneToOne(mappedBy = "account")
-  private UserEntity users;
+  private SenderEntity senders;
 }

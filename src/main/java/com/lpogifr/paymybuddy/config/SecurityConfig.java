@@ -1,6 +1,6 @@
 package com.lpogifr.paymybuddy.config;
 
-import com.lpogifr.paymybuddy.repository.UsersRepository;
+import com.lpogifr.paymybuddy.repository.SendersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
   @Autowired
-  private UsersRepository repository;
+  private SendersRepository repository;
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -42,7 +42,7 @@ public class SecurityConfig {
       })
       //  .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       // .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(jwtDecoder())))
-      //.userDetailsService(userDetailsService)
+      //.senderDetailsService(senderDetailsService)
       .httpBasic(Customizer.withDefaults())
       .formLogin(form -> form.loginPage("/login").failureUrl("/login?error=true"))
       .logout(logout -> logout.logoutSuccessUrl("/login?logout=true").deleteCookies("JSESSIONID").logoutUrl("/logout"))

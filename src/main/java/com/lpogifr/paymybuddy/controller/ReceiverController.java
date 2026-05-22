@@ -1,6 +1,6 @@
 package com.lpogifr.paymybuddy.controller;
 
-import com.lpogifr.paymybuddy.model.UserModel;
+import com.lpogifr.paymybuddy.model.SenderModel;
 import com.lpogifr.paymybuddy.service.ReceiverService;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -18,8 +18,8 @@ public class ReceiverController {
   private final ReceiverService receiverService;
 
   @GetMapping("/receiver")
-  public ResponseEntity<List<UserModel>> findAllreceiver() {
-    //List<UserModel> response = assembler.userEntityToModel(receiverService.findAll());
+  public ResponseEntity<List<SenderModel>> findAllreceiver() {
+    //List<SenderModel> response = assembler.senderEntityToModel(receiverService.findAll());
     return new ResponseEntity<>(HttpStatus.OK);
   }
 }

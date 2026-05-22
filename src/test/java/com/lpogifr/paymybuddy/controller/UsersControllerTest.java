@@ -9,10 +9,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.lpogifr.paymybuddy.assembler.UserAssembler;
+import com.lpogifr.paymybuddy.assembler.SenderAssembler;
 import com.lpogifr.paymybuddy.model.AccountModel;
-import com.lpogifr.paymybuddy.model.UserModel;
-import com.lpogifr.paymybuddy.service.UsersService;
+import com.lpogifr.paymybuddy.model.SenderModel;
+import com.lpogifr.paymybuddy.service.SendersService;
 import java.util.Collections;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,33 +21,33 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(UsersController.class)
-class UsersControllerTest {
+@WebMvcTest(SendersController.class)
+class SendersControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
 
   @MockBean
-  private UsersService service;
+  private SendersService service;
 
   @MockBean
-  private UserAssembler assembler;
+  private SenderAssembler assembler;
 
   @Test
-  void itShouldFindAllUsers() throws Exception {
-    mockMvc.perform(get("/users")).andDo(print()).andExpect(status().isOk());
+  void itShouldFindAllSenders() throws Exception {
+    mockMvc.perform(get("/senders")).andDo(print()).andExpect(status().isOk());
     verify(service).findAll();
   }
 
   @Test
-  void itShouldFindUserByEmail() throws Exception {
-    mockMvc.perform(get("/users/email")).andDo(print()).andExpect(status().isOk());
+  void itShouldFindSenderByEmail() throws Exception {
+    mockMvc.perform(get("/senders/email")).andDo(print()).andExpect(status().isOk());
     verify(service).findByEmail(any());
   }
 
   @Test
   void itShouldSave() throws Exception {
-    UserModel model = UserModel
+    SenderModel model = SenderModel
       .builder()
       .account(AccountModel.builder().build())
       .email("email")
@@ -56,7 +56,7 @@ class UsersControllerTest {
       .receiverList(Collections.emptyList())
       .build();
     mockMvc
-      .perform(post("/users").content(asJson(model)).contentType(MediaType.APPLICATION_JSON_VALUE))
+      .perform(post("/senders").content(asJson(model)).contentType(MediaType.APPLICATION_JSON_VALUE))
       .andDo(print())
       .andExpect(status().isCreated());
     verify(service).save(any());
@@ -64,19 +64,19 @@ class UsersControllerTest {
 
   @Test
   void itShouldDelete() throws Exception {
-    mockMvc.perform(get("/users/email")).andDo(print()).andExpect(status().isNoContent());
+    mockMvc.perform(get("/senders/email")).andDo(print()).andExpect(status().isNoContent());
     verify(service).delete(any());
   }
 
   @Test
   void itShouldUpdate() throws Exception {
-    mockMvc.perform(get("/users")).andDo(print()).andExpect(status().isOk());
+    mockMvc.perform(get("/senders")).andDo(print()).andExpect(status().isOk());
     verify(service).update(3L, any());
   }
 
   @Test
   void itShouldAddreceiver() throws Exception {
-    mockMvc.perform(get("/users")).andDo(print()).andExpect(status().isOk());
+    mockMvc.perform(get("/senders")).andDo(print()).andExpect(status().isOk());
     verify(service).addreceiver(anyLong(), any());
   }
 }

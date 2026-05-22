@@ -35,16 +35,16 @@
         <h1 align="center">My Profile</h1>
         <div align="center">
             <label> Name :</label>
-            <label th:text="${user.name}"> </label>
+            <label th:text="${sender.name}"> </label>
             <br>
             <label> Email :</label>
-            <label th:text="${user.email}"> </label>
+            <label th:text="${sender.email}"> </label>
             <br>
             <label> Balance :</label>
-            <label th:text="${user.account.balance}"> </label>
+            <label th:text="${sender.account.balance}"> </label>
             <br>
             <label> receiverList :</label>
-            <div th:each="receiver:${user.receiverList}">
+            <div th:each="receiver:${sender.receiverList}">
                 <label th:text="${receiver.name}"> </label>
             </div>
             <br>

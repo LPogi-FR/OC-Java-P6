@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserModel {
+public class SenderModel {
 
   private Long id;
 
@@ -18,7 +18,7 @@ public class UserModel {
 
   private AccountModel account;
 
-  private List<UserModel> receiverList;
+  private List<SenderModel> receiverList;
 
   private String name;
 }

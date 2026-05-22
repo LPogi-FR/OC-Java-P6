@@ -14,5 +14,5 @@ public interface TransactionsRepository extends JpaRepository<TransactionsEntity
 
   TransactionsEntity save(TransactionsEntity entity);
 
-  List<TransactionsEntity> findTransactionsEntitiesByUserId(Long userId);
+  List<TransactionsEntity> findTransactionsEntitiesBySenderId(Long senderId);
 }

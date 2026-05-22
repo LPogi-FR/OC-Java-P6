@@ -1,34 +1,34 @@
 package com.lpogifr.paymybuddy.assembler;
 
 import com.lpogifr.paymybuddy.entity.ReceiverEntity;
-import com.lpogifr.paymybuddy.entity.UserEntity;
-import com.lpogifr.paymybuddy.model.UserModel;
+import com.lpogifr.paymybuddy.entity.SenderEntity;
+import com.lpogifr.paymybuddy.model.SenderModel;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 @Component
-public class ReceiverAssembler implements IAssembler<ReceiverEntity, UserModel> {
+public class ReceiverAssembler implements IAssembler<ReceiverEntity, SenderModel> {
 
   @Override
-  public ReceiverEntity fromModelToEntity(UserModel model) {
+  public ReceiverEntity fromModelToEntity(SenderModel model) {
     if (model == null) {
       return null;
     }
-    var userEntity = UserEntity.builder().id(model.getId()).build();
-    return ReceiverEntity.builder().receiver(userEntity).build();
+    var senderEntity = SenderEntity.builder().id(model.getId()).build();
+    return ReceiverEntity.builder().receiver(senderEntity).build();
   }
 
   @Override
-  public UserModel fromEntityToModel(ReceiverEntity entity) {
+  public SenderModel fromEntityToModel(ReceiverEntity entity) {
     if (entity == null) {
       return null;
     }
-    return UserModel.builder().id(entity.getUser().getId()).name(entity.getUser().getName()).build();
+    return SenderModel.builder().id(entity.getSender().getId()).name(entity.getSender().getName()).build();
   }
 
   @Override
-  public List<ReceiverEntity> fromModelListToEntityList(List<UserModel> modelList) {
+  public List<ReceiverEntity> fromModelListToEntityList(List<SenderModel> modelList) {
     if (CollectionUtils.isEmpty(modelList)) {
       return null;
     }
@@ -36,7 +36,7 @@ public class ReceiverAssembler implements IAssembler<ReceiverEntity, UserModel> 
   }
 
   @Override
-  public List<UserModel> fromEntityListToModelList(List<ReceiverEntity> entityList) {
+  public List<SenderModel> fromEntityListToModelList(List<ReceiverEntity> entityList) {
     if (CollectionUtils.isEmpty(entityList)) {
       return null;
     }

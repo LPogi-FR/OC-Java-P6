@@ -13,14 +13,14 @@ import lombok.*;
 public class ReceiverEntity {
 
   @ManyToOne
-  @MapsId("userId")
-  @JoinColumn(name = "user_id")
-  private UserEntity user;
+  @MapsId("senderId")
+  @JoinColumn(name = "sender_id")
+  private SenderEntity sender;
 
   @ManyToOne
   @MapsId("receiverId")
   @JoinColumn(name = "receiver_id")
-  private UserEntity receiver;
+  private SenderEntity receiver;
 
   @EmbeddedId
   private ReceiverPrimaryKey id;

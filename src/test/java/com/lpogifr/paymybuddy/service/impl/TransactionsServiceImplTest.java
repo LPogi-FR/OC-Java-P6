@@ -34,8 +34,8 @@ class TransactionsServiceImplTest {
   }
 
   @Test
-  void itShouldFindByUserId() {
-    assertDoesNotThrow(() -> service.findByUserId(1L));
+  void itShouldFindBySenderId() {
+    assertDoesNotThrow(() -> service.findBySenderId(1L));
     verify(repository).findAll();
   }
 }

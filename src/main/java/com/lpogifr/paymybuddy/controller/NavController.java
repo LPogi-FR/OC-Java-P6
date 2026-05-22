@@ -3,9 +3,9 @@ package com.lpogifr.paymybuddy.controller;
 import com.lpogifr.paymybuddy.front.form.NewreceiverForm;
 import com.lpogifr.paymybuddy.front.form.RegisterForm;
 import com.lpogifr.paymybuddy.front.form.TransactionForm;
-import com.lpogifr.paymybuddy.model.UserModel;
+import com.lpogifr.paymybuddy.model.SenderModel;
+import com.lpogifr.paymybuddy.service.SendersService;
 import com.lpogifr.paymybuddy.service.TransactionsService;
-import com.lpogifr.paymybuddy.service.UsersService;
 import jakarta.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequiredArgsConstructor
 public class NavController {
 
-  private final UsersService service;
+  private final SendersService service;
   private final TransactionsService transactionsService;
-  private UserModel userModel;
+  private SenderModel senderModel;
 
   @GetMapping("/index")
   public String index(Model model, HttpSession session) {
-    session.setAttribute("User", userModel);
+    session.setAttribute("Sender", senderModel);
     return "index";
   }
 
@@ -38,24 +38,24 @@ public class NavController {
 
   @GetMapping("/transfert")
   public String transfert(Model model, Principal principal) {
-    if (userModel == null) {
-      userModel = service.findByEmail(principal.getName());
+    if (senderModel == null) {
+      senderModel = service.findByEmail(principal.getName());
     }
     TransactionForm transactionForm = new TransactionForm();
     NewreceiverForm receiverForm = new NewreceiverForm();
-    List<UserModel> otherUsers = service.findOtherUSers(userModel.getId());
-    model.addAttribute("user", userModel);
+    List<SenderModel> otherSenders = service.findOtherUSers(senderModel.getId());
+    model.addAttribute("sender", senderModel);
     model.addAttribute("transactionForm", transactionForm);
     model.addAttribute("receiverForm", receiverForm);
-    model.addAttribute("otherUsers", otherUsers);
+    model.addAttribute("otherSenders", otherSenders);
     return "menu/transfert";
   }
 
   @GetMapping({ "/home", "/" })
   public String home(Model model, Principal principal) {
-    userModel = service.findByEmail(principal.getName());
-    model.addAttribute("account", userModel.getAccount());
-    model.addAttribute("transactionList", transactionsService.findByUserId(userModel.getId()));
+    senderModel = service.findByEmail(principal.getName());
+    model.addAttribute("account", senderModel.getAccount());
+    model.addAttribute("transactionList", transactionsService.findBySenderId(senderModel.getId()));
     return "menu/home";
   }
 
@@ -66,7 +66,7 @@ public class NavController {
 
   @GetMapping("/profile")
   public String profile(Model model) {
-    model.addAttribute("user", userModel);
+    model.addAttribute("sender", senderModel);
 
     return "menu/profile";
   }

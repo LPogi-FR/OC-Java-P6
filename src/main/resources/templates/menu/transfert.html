@@ -34,7 +34,7 @@
         <form method="post" th:action="@{/transfert/newreceiver}" th:object="${receiverForm}">
             <label> Add receiver</label>
             <select th:field="*{email}" >
-                <option th:each="receiver:${otherUsers}" th:value="${receiver.email}" th:text="${receiver.name}"></option>
+                <option th:each="receiver:${otherSenders}" th:value="${receiver.email}" th:text="${receiver.name}"></option>
             </select>
             <br>
             <input type="submit" value="Add receiver">
@@ -59,7 +59,7 @@
             <label>Select receiver : </label>
 
             <select th:field="*{receiverName}" id="receiver">
-                <option th:each="receiver:${user.receiverList}" th:value="${receiver.name}" th:text="${receiver.name}"></option>
+                <option th:each="receiver:${sender.receiverList}" th:value="${receiver.name}" th:text="${receiver.name}"></option>
             </select>
             <br>
             <input type="submit" value="Transfert money">

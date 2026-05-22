@@ -12,9 +12,9 @@ public class TransactionsModel {
 
   private Long id;
 
-  private UserModel user;
+  private SenderModel sender;
 
-  private UserModel receiver;
+  private SenderModel receiver;
 
   private double amount;
 

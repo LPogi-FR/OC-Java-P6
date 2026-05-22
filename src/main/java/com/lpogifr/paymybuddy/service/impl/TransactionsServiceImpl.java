@@ -29,7 +29,7 @@ public class TransactionsServiceImpl implements TransactionsService {
   }
 
   @Override
-  public List<TransactionsEntity> findByUserId(Long UserId) {
-    return repository.findAll().stream().filter(p -> p.getUser().getId() == UserId).toList();
+  public List<TransactionsEntity> findBySenderId(Long SenderId) {
+    return repository.findAll().stream().filter(p -> p.getSender().getId() == SenderId).toList();
   }
 }

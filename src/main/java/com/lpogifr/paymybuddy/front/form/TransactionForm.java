@@ -9,7 +9,7 @@ public class TransactionForm {
 
   private String description;
   private double amount;
-  private Long userId;
+  private Long senderId;
   private Long receiverId;
   private String receiverName;
 }

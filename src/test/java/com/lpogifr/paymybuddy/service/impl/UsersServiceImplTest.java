@@ -6,10 +6,10 @@ import static org.mockito.Mockito.verify;
 
 import com.lpogifr.paymybuddy.PayMyBuddyAppTest;
 import com.lpogifr.paymybuddy.PayMyBuddyApplication;
-import com.lpogifr.paymybuddy.assembler.UserAssembler;
-import com.lpogifr.paymybuddy.entity.UserEntity;
-import com.lpogifr.paymybuddy.model.UserModel;
-import com.lpogifr.paymybuddy.repository.UsersRepository;
+import com.lpogifr.paymybuddy.assembler.SenderAssembler;
+import com.lpogifr.paymybuddy.entity.SenderEntity;
+import com.lpogifr.paymybuddy.model.SenderModel;
+import com.lpogifr.paymybuddy.repository.SendersRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,23 +23,23 @@ import org.springframework.test.context.TestPropertySource;
 
 @SpringBootTest(classes = { PayMyBuddyAppTest.class })
 @TestPropertySource(locations = { "classpath:application-test.properties" })
-class UsersServiceImplTest {
+class SendersServiceImplTest {
 
   @Autowired
-  private UsersServiceImpl service;
+  private SendersServiceImpl service;
 
   @Autowired
-  private UsersRepository userRepository;
+  private SendersRepository senderRepository;
 
   @BeforeEach
   void setUp() {
-    this.userRepository.deleteAll();
-    UserEntity user1 = UserEntity.builder().id(1L).email("Test1").name("Didier").password("1234567890").build();
-    this.userRepository.save(user1);
-    UserEntity user2 = UserEntity.builder().id(2L).email("Test2").name("Fernand").password("1234567890").build();
-    this.userRepository.save(user2);
-    UserEntity user3 = UserEntity.builder().id(3L).email("Test3").name("Julie").password("1234567890").build();
-    this.userRepository.save(user3);
+    this.senderRepository.deleteAll();
+    SenderEntity sender1 = SenderEntity.builder().id(1L).email("Test1").name("Didier").password("1234567890").build();
+    this.senderRepository.save(sender1);
+    SenderEntity sender2 = SenderEntity.builder().id(2L).email("Test2").name("Fernand").password("1234567890").build();
+    this.senderRepository.save(sender2);
+    SenderEntity sender3 = SenderEntity.builder().id(3L).email("Test3").name("Julie").password("1234567890").build();
+    this.senderRepository.save(sender3);
   }
 
   @Test
@@ -72,8 +72,8 @@ class UsersServiceImplTest {
   @Test
   void itShouldSave() {
     // Need DB for Test
-    UserModel newUser = UserModel.builder().email("Test4").name("Test4").password("Test4").build();
-    assertDoesNotThrow(() -> service.save(newUser));
+    SenderModel newSender = SenderModel.builder().email("Test4").name("Test4").password("Test4").build();
+    assertDoesNotThrow(() -> service.save(newSender));
     final var all = service.findAll();
     assertEquals(4, all.size());
     assertEquals("Test4", all.get(3).getEmail());
@@ -82,8 +82,8 @@ class UsersServiceImplTest {
 
   @Test
   void itShouldUpdate() {
-    UserModel newUser = UserModel.builder().email("Test4").name("AZE").password("Test4").build();
-    assertDoesNotThrow(() -> service.update(4L, newUser));
+    SenderModel newSender = SenderModel.builder().email("Test4").name("AZE").password("Test4").build();
+    assertDoesNotThrow(() -> service.update(4L, newSender));
     final var all = service.findAll();
     assertEquals(4, all.size());
     assertEquals("Test4", all.get(3).getName());
@@ -100,15 +100,15 @@ class UsersServiceImplTest {
 
   @Test
   void itShouldFindOtherUSers() {
-    final var otherUser = service.findOtherUSers(1L);
-    assertEquals("Julie", otherUser.get(0).getName());
+    final var otherSender = service.findOtherUSers(1L);
+    assertEquals("Julie", otherSender.get(0).getName());
     //assertDoesNotThrow(() -> service.findOtherUSers(1L));
-    //verify(repository).findOtheUser(any());
+    //verify(repository).findOtheSender(any());
   }
 
   @Test
   void itShouldAddreceiver() {
     assertDoesNotThrow(() -> service.addreceiver(1L, 3L));
-    assertEquals(1, service.findById(1L).getreceiverList().size());
+    assertEquals(1, service.findById(1L).getReceiverList().size());
   }
 }

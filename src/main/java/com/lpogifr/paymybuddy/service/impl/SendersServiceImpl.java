@@ -1,16 +1,16 @@
 package com.lpogifr.paymybuddy.service.impl;
 
 import com.lpogifr.paymybuddy.assembler.AccountAssembler;
-import com.lpogifr.paymybuddy.assembler.UserAssembler;
+import com.lpogifr.paymybuddy.assembler.SenderAssembler;
 import com.lpogifr.paymybuddy.entity.AccountEntity;
 import com.lpogifr.paymybuddy.entity.ReceiverEntity;
 import com.lpogifr.paymybuddy.entity.ReceiverPrimaryKey;
-import com.lpogifr.paymybuddy.entity.UserEntity;
-import com.lpogifr.paymybuddy.model.UserModel;
+import com.lpogifr.paymybuddy.entity.SenderEntity;
+import com.lpogifr.paymybuddy.model.SenderModel;
 import com.lpogifr.paymybuddy.repository.AccountRepository;
 import com.lpogifr.paymybuddy.repository.ReceiverRepository;
-import com.lpogifr.paymybuddy.repository.UsersRepository;
-import com.lpogifr.paymybuddy.service.UsersService;
+import com.lpogifr.paymybuddy.repository.SendersRepository;
+import com.lpogifr.paymybuddy.service.SendersService;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -21,57 +21,57 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @AllArgsConstructor
-public class UsersServiceImpl implements UsersService {
+public class SendersServiceImpl implements SendersService {
 
-  private final UsersRepository repository;
+  private final SendersRepository repository;
 
   private final AccountRepository accountRepository;
 
   private final ReceiverRepository receiverRepository;
 
-  private final UserAssembler assembler;
+  private final SenderAssembler assembler;
 
   private final AccountAssembler accountAssembler;
 
   @Override
-  public List<UserModel> findAll() {
+  public List<SenderModel> findAll() {
     return this.assembler.fromEntityListToModelList(repository.findAll());
   }
 
   @Override
-  public UserModel findByEmail(String email) {
-    UserEntity entity = repository.findByEmail(email);
+  public SenderModel findByEmail(String email) {
+    SenderEntity entity = repository.findByEmail(email);
     return assembler.fromEntityToModel(entity);
   }
 
   @Override
-  public UserModel findByName(String name) {
-    UserEntity entity = repository.findByName(name);
+  public SenderModel findByName(String name) {
+    SenderEntity entity = repository.findByName(name);
     return assembler.fromEntityToModel(entity);
   }
 
   @Override
-  public UserModel findById(Long id) {
-    Optional<UserEntity> entityOptional = repository.findById(id);
+  public SenderModel findById(Long id) {
+    Optional<SenderEntity> entityOptional = repository.findById(id);
     return entityOptional.map(assembler::fromEntityToModel).orElse(null);
   }
 
   @Override
-  public UserModel save(UserModel newUser) {
-    UserEntity entityToSave = assembler.fromModelToEntity(newUser);
+  public SenderModel save(SenderModel newSender) {
+    SenderEntity entityToSave = assembler.fromModelToEntity(newSender);
     AccountEntity accountEntity = accountRepository.save(createAccount(entityToSave));
     entityToSave.setAccount(accountEntity);
-    UserEntity savedUserEntity = repository.save(entityToSave);
-    accountEntity.setUsers(savedUserEntity);
+    SenderEntity savedSenderEntity = repository.save(entityToSave);
+    accountEntity.setSenders(savedSenderEntity);
     accountEntity = accountRepository.save(accountEntity);
-    UserModel saved = assembler.fromEntityToModel(savedUserEntity);
+    SenderModel saved = assembler.fromEntityToModel(savedSenderEntity);
     saved.setAccount(accountAssembler.fromEntityToModel(accountEntity));
     return saved;
   }
 
-  private AccountEntity createAccount(UserEntity entityToSave) {
+  private AccountEntity createAccount(SenderEntity entityToSave) {
     AccountEntity account = new AccountEntity();
-    account.setUsers(entityToSave);
+    account.setSenders(entityToSave);
     double leftLimit = 100D;
     double rightLimit = 1000D;
     account.setBalance(leftLimit + new Random().nextDouble() * (rightLimit - leftLimit));
@@ -83,41 +83,41 @@ public class UsersServiceImpl implements UsersService {
     repository.deleteByEmail(email);
   }
 
-  public UserModel update(Long id, UserModel updatedUser) {
-    Optional<UserEntity> entity = repository.findById(id);
+  public SenderModel update(Long id, SenderModel updatedSender) {
+    Optional<SenderEntity> entity = repository.findById(id);
     entity.ifPresentOrElse(
       p -> {
-        p.setName(updatedUser.getName());
-        p.setEmail(updatedUser.getEmail());
+        p.setName(updatedSender.getName());
+        p.setEmail(updatedSender.getEmail());
         repository.save(p);
       },
-      () -> System.out.println("User Not Found")
+      () -> System.out.println("Sender Not Found")
     );
     return assembler.fromEntityToModel(repository.findById(id).orElse(null));
   }
 
   @Override
-  public UserModel addreceiver(Long id, Long receiverId) {
-    Optional<UserEntity> response = null;
-    UserEntity userEntity = repository.findById(id).orElse(null);
-    UserEntity newreceiver = repository.findById(receiverId).orElse(null);
-    if (userEntity != null) {
+  public SenderModel addreceiver(Long id, Long receiverId) {
+    Optional<SenderEntity> response = null;
+    SenderEntity senderEntity = repository.findById(id).orElse(null);
+    SenderEntity newreceiver = repository.findById(receiverId).orElse(null);
+    if (senderEntity != null) {
       final var newreceiverEntity = new ReceiverEntity()
         .builder()
-        .id(ReceiverPrimaryKey.builder().userId(userEntity.getId()).receiverId(newreceiver.getId()).build())
-        .user(userEntity)
+        .id(ReceiverPrimaryKey.builder().senderId(senderEntity.getId()).receiverId(newreceiver.getId()).build())
+        .sender(senderEntity)
         .receiver(newreceiver)
         .build();
-      List<ReceiverEntity> receiverEntityList = userEntity.getReceiverList();
+      List<ReceiverEntity> receiverEntityList = senderEntity.getReceiverList();
       receiverRepository.save(newreceiverEntity);
-      //userEntity.setreceiverList(receiverEntityList);
+      //senderEntity.setreceiverList(receiverEntityList);
       response = repository.findById(id);
     }
     return assembler.fromEntityToModel(response.orElse(null));
   }
 
   @Override
-  public List<UserModel> findOtherUSers(Long userId) {
-    return assembler.fromEntityListToModelList(repository.findOtheUser(userId));
+  public List<SenderModel> findOtherUSers(Long senderId) {
+    return assembler.fromEntityListToModelList(repository.findOtheSender(senderId));
   }
 }
