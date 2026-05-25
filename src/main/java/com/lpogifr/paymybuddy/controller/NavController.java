@@ -41,12 +41,9 @@ public class NavController {
     if (senderModel == null) {
       senderModel = service.findByEmail(principal.getName());
     }
-    TransactionForm transactionForm = new TransactionForm();
     NewreceiverForm receiverForm = new NewreceiverForm();
-    List<SenderModel> otherSenders = service.findOtherUSers(senderModel.getId());
-    model.addAttribute("sender", senderModel);
-    model.addAttribute("transactionForm", transactionForm);
     model.addAttribute("receiverForm", receiverForm);
+    List<SenderModel> otherSenders = service.findOtherUSers(senderModel.getId());
     model.addAttribute("otherSenders", otherSenders);
     return "menu/transfert";
   }
@@ -54,6 +51,9 @@ public class NavController {
   @GetMapping({ "/home", "/" })
   public String home(Model model, Principal principal) {
     senderModel = service.findByEmail(principal.getName());
+    TransactionForm transactionForm = new TransactionForm();
+    model.addAttribute("sender", senderModel);
+    model.addAttribute("transactionForm", transactionForm);
     model.addAttribute("account", senderModel.getAccount());
     model.addAttribute("transactionList", transactionsService.findBySenderId(senderModel.getId()));
     return "menu/home";
@@ -71,9 +71,9 @@ public class NavController {
     return "menu/profile";
   }
 
-  @GetMapping("/logoff")
-  public String logoff(Model model) {
-    return "menu/logoff";
+  @GetMapping("/logout")
+  public String logout(Model model) {
+    return "/logout";
   }
 
   @GetMapping("/login")
