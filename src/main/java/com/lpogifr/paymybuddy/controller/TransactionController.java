@@ -39,11 +39,8 @@ public class TransactionController {
     if (model == null) {
       return ResponseEntity.badRequest().build();
     }
-    final var moneyToRecieve = accountService.sendMoney(
-      sendersService.findById(model.getSenderId()).getAccount(),
-      model.getAmount()
-    );
-    accountService.receivceMoney(sendersService.findById(model.getReceiverId()).getAccount(), moneyToRecieve);
+    accountService.sendMoney(sendersService.findById(model.getSenderId()).getAccount(), model.getAmount());
+    accountService.receivceMoney(sendersService.findById(model.getReceiverId()).getAccount(), model.getAmount());
     SenderModel senderModel = sendersService.findById(model.getSenderId());
     SenderModel receiverModel = sendersService.findById(model.getReceiverId());
     final var response = TransactionsModel

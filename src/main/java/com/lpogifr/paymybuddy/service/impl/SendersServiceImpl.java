@@ -99,6 +99,7 @@ public class SendersServiceImpl implements SendersService {
   @Override
   public SenderModel addreceiver(Long id, Long receiverId) {
     Optional<SenderEntity> response = null;
+
     SenderEntity senderEntity = repository.findById(id).orElse(null);
     SenderEntity newreceiver = repository.findById(receiverId).orElse(null);
     if (senderEntity != null) {
@@ -108,10 +109,10 @@ public class SendersServiceImpl implements SendersService {
         .sender(senderEntity)
         .receiver(newreceiver)
         .build();
-      List<ReceiverEntity> receiverEntityList = senderEntity.getReceiverList();
       receiverRepository.save(newreceiverEntity);
-      //senderEntity.setreceiverList(receiverEntityList);
-      response = repository.findById(id);
+      senderEntity.getReceiverList().add(newreceiverEntity);
+      repository.save(senderEntity);
+      response = Optional.of(senderEntity);
     }
     return assembler.fromEntityToModel(response.orElse(null));
   }

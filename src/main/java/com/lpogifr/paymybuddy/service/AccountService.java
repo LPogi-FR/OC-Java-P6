@@ -19,7 +19,7 @@ public interface AccountService {
 
   AccountModel update(Long id, AccountModel updatedAccount);
 
-  double sendMoney(AccountModel account, double sentAmount);
+  void sendMoney(AccountModel account, double sentAmount);
 
   void receivceMoney(AccountModel account, double receiveAmount);
 }

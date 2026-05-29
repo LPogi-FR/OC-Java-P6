@@ -5,16 +5,15 @@ import com.lpogifr.paymybuddy.entity.SenderEntity;
 import com.lpogifr.paymybuddy.front.form.NewreceiverForm;
 import com.lpogifr.paymybuddy.front.form.TransactionForm;
 import com.lpogifr.paymybuddy.model.SenderModel;
-import com.lpogifr.paymybuddy.model.TransactionsModel;
 import com.lpogifr.paymybuddy.service.AccountService;
 import com.lpogifr.paymybuddy.service.SendersService;
 import com.lpogifr.paymybuddy.service.TransactionsService;
 import jakarta.servlet.http.HttpSession;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +29,7 @@ public class TransfertController {
   private final SendersService sendersService;
   private final SenderAssembler assembler;
 
+  @Transactional
   @RequestMapping(value = "/", method = RequestMethod.POST)
   public String createTransfert(
     Model model,
@@ -38,29 +38,27 @@ public class TransfertController {
     @AuthenticationPrincipal UserDetails userDetails
   ) {
     SenderModel senderModel = assembler.fromEntityToModel(((SenderEntity) userDetails));
-    final var moneyToRecieve = accountService.sendMoney(senderModel.getAccount(), transactionForm.getAmount());
-    accountService.receivceMoney(
-      sendersService.findByName(transactionForm.getReceiverName()).getAccount(),
-      moneyToRecieve
-    );
     SenderModel receiverModel = sendersService.findByName(transactionForm.getReceiverName());
-    final var response = TransactionsModel
-      .builder()
-      .sender(senderModel)
-      .receiver(receiverModel)
-      .execTime(LocalDateTime.now())
-      .amount(transactionForm.getAmount())
-      .description(transactionForm.getDescription())
-      .build();
-    transactionsService.save(response);
+    transactionForm.setSenderId(senderModel.getId());
+    transactionForm.setReceiverId(receiverModel.getId());
+    transactionsService.createNewTransaction(transactionForm);
+
     return "redirect:/index";
   }
 
   @RequestMapping(value = "/newreceiver", method = RequestMethod.POST)
-  public String addreceiver(Model model, @ModelAttribute NewreceiverForm receiverForm, HttpSession session) {
-    SenderModel senderModel = (SenderModel) session.getAttribute("senderModel");
+  public String addreceiver(
+    Model model,
+    @ModelAttribute NewreceiverForm receiverForm,
+    HttpSession session,
+    @AuthenticationPrincipal UserDetails userDetails
+  ) {
+    SenderModel senderModel = assembler.fromEntityToModel(((SenderEntity) userDetails));
 
-    sendersService.addreceiver(1L, sendersService.findByEmail(receiverForm.getEmail()).getId());
+    senderModel =
+      sendersService.addreceiver(senderModel.getId(), sendersService.findByEmail(receiverForm.getEmail()).getId());
+
+    sendersService.update(senderModel.getId(), senderModel);
     return "redirect:/index";
   }
   /*

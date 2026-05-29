@@ -1,8 +1,5 @@
 package com.lpogifr.paymybuddy.service.impl;
 
-import static com.lpogifr.paymybuddy.utils.AppUtils.isBalancePositive;
-import static com.lpogifr.paymybuddy.utils.AppUtils.isSentAmountPositiveAndNotNull;
-
 import com.lpogifr.paymybuddy.assembler.AccountAssembler;
 import com.lpogifr.paymybuddy.entity.AccountEntity;
 import com.lpogifr.paymybuddy.model.AccountModel;
@@ -57,33 +54,9 @@ public class AccountServiceImpl implements AccountService {
   }
 
   @Override
-  public double sendMoney(AccountModel account, double sentAmount) {
-    if (isSentAmountPositiveAndNotNull(sentAmount)) {
-      if (isBalancePositive(account.getBalance(), sentAmount)) {
-        account.setBalance(account.getBalance() - sentAmount);
-        update(account.getId(), account);
-      } else {
-        sentAmount = 0;
-        System.out.println("Operation Impossible not enough found in account");
-        /*JOptionPane.showMessageDialog(
-          this,
-          "Error in Transaction",
-          "Operation Impossible not enough found in account",
-          JOptionPane.ERROR_MESSAGE
-        );*/
-      }
-    } else {
-      sentAmount = 0;
-      System.out.println("Operation Impossible sent amount negative or null");
-      JOptionPane.showMessageDialog(
-        null,
-        "Error in Transaction",
-        "Operation Impossible sent amount negative or null",
-        JOptionPane.ERROR_MESSAGE
-      );
-    }
-    // return new Exception()*/
-    return sentAmount;
+  public void sendMoney(AccountModel account, double sentAmount) {
+    account.setBalance(account.getBalance() - sentAmount);
+    update(account.getId(), account);
   }
 
   @Override
