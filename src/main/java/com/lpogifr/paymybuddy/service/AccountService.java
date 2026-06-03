@@ -22,4 +22,6 @@ public interface AccountService {
   void sendMoney(AccountModel account, double sentAmount);
 
   void receivceMoney(AccountModel account, double receiveAmount);
+
+  AccountModel createNewAccount();
 }

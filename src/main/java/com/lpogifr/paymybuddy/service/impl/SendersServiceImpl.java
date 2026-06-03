@@ -1,19 +1,17 @@
 package com.lpogifr.paymybuddy.service.impl;
 
-import com.lpogifr.paymybuddy.assembler.AccountAssembler;
 import com.lpogifr.paymybuddy.assembler.SenderAssembler;
-import com.lpogifr.paymybuddy.entity.AccountEntity;
 import com.lpogifr.paymybuddy.entity.ReceiverEntity;
 import com.lpogifr.paymybuddy.entity.ReceiverPrimaryKey;
 import com.lpogifr.paymybuddy.entity.SenderEntity;
+import com.lpogifr.paymybuddy.front.form.RegisterForm;
+import com.lpogifr.paymybuddy.model.AccountModel;
 import com.lpogifr.paymybuddy.model.SenderModel;
-import com.lpogifr.paymybuddy.repository.AccountRepository;
 import com.lpogifr.paymybuddy.repository.ReceiverRepository;
 import com.lpogifr.paymybuddy.repository.SendersRepository;
 import com.lpogifr.paymybuddy.service.SendersService;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,13 +23,9 @@ public class SendersServiceImpl implements SendersService {
 
   private final SendersRepository repository;
 
-  private final AccountRepository accountRepository;
-
   private final ReceiverRepository receiverRepository;
 
   private final SenderAssembler assembler;
-
-  private final AccountAssembler accountAssembler;
 
   @Override
   public List<SenderModel> findAll() {
@@ -57,25 +51,9 @@ public class SendersServiceImpl implements SendersService {
   }
 
   @Override
-  public SenderModel save(SenderModel newSender) {
-    SenderEntity entityToSave = assembler.fromModelToEntity(newSender);
-    AccountEntity accountEntity = accountRepository.save(createAccount(entityToSave));
-    entityToSave.setAccount(accountEntity);
-    SenderEntity savedSenderEntity = repository.save(entityToSave);
-    accountEntity.setSenders(savedSenderEntity);
-    accountEntity = accountRepository.save(accountEntity);
-    SenderModel saved = assembler.fromEntityToModel(savedSenderEntity);
-    saved.setAccount(accountAssembler.fromEntityToModel(accountEntity));
-    return saved;
-  }
-
-  private AccountEntity createAccount(SenderEntity entityToSave) {
-    AccountEntity account = new AccountEntity();
-    account.setSenders(entityToSave);
-    double leftLimit = 100D;
-    double rightLimit = 1000D;
-    account.setBalance(leftLimit + new Random().nextDouble() * (rightLimit - leftLimit));
-    return account;
+  public SenderModel save(SenderModel model) {
+    repository.save(assembler.fromModelToEntity(model));
+    return model;
   }
 
   @Override
@@ -120,5 +98,16 @@ public class SendersServiceImpl implements SendersService {
   @Override
   public List<SenderModel> findOtherUSers(Long senderId) {
     return assembler.fromEntityListToModelList(repository.findOtheSender(senderId));
+  }
+
+  @Override
+  public void createSender(RegisterForm registerForm, AccountModel newAccount) {
+    SenderModel senderModel = new SenderModel();
+    senderModel.setEmail(registerForm.getEmail());
+    senderModel.setName(registerForm.getName());
+    senderModel.setPassword(registerForm.getPassword());
+    senderModel.setAccount(newAccount);
+
+    save(senderModel);
   }
 }

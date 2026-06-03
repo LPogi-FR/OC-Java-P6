@@ -1,5 +1,7 @@
 package com.lpogifr.paymybuddy.service;
 
+import com.lpogifr.paymybuddy.front.form.RegisterForm;
+import com.lpogifr.paymybuddy.model.AccountModel;
 import com.lpogifr.paymybuddy.model.SenderModel;
 import java.util.List;
 
@@ -24,4 +26,6 @@ public interface SendersService {
   SenderModel addreceiver(Long id, Long receiverId);
 
   List<SenderModel> findOtherUSers(Long senderId);
+
+  void createSender(RegisterForm registerForm, AccountModel newAccount);
 }

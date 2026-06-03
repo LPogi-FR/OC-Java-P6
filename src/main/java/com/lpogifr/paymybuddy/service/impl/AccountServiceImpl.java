@@ -64,4 +64,12 @@ public class AccountServiceImpl implements AccountService {
     account.setBalance(account.getBalance() + receiveAmount);
     update(account.getId(), account);
   }
+
+  @Override
+  public AccountModel createNewAccount() {
+    AccountModel newAccount = new AccountModel();
+    newAccount.setBalance(300.0);
+    save(newAccount);
+    return newAccount;
+  }
 }

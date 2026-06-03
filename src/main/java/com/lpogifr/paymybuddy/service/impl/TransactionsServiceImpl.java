@@ -11,6 +11,7 @@ import com.lpogifr.paymybuddy.repository.TransactionsRepository;
 import com.lpogifr.paymybuddy.service.AccountService;
 import com.lpogifr.paymybuddy.service.SendersService;
 import com.lpogifr.paymybuddy.service.TransactionsService;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -45,6 +46,7 @@ public class TransactionsServiceImpl implements TransactionsService {
     return repository.findAll().stream().filter(p -> p.getSender().getId() == SenderId).toList();
   }
 
+  @Transactional
   @Override
   public void createNewTransaction(TransactionForm transactionForm) {
     SenderModel sender = sendersService.findById(transactionForm.getSenderId());

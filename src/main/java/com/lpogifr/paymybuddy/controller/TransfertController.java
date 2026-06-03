@@ -3,6 +3,7 @@ package com.lpogifr.paymybuddy.controller;
 import com.lpogifr.paymybuddy.assembler.SenderAssembler;
 import com.lpogifr.paymybuddy.entity.SenderEntity;
 import com.lpogifr.paymybuddy.front.form.NewreceiverForm;
+import com.lpogifr.paymybuddy.front.form.RegisterForm;
 import com.lpogifr.paymybuddy.front.form.TransactionForm;
 import com.lpogifr.paymybuddy.model.SenderModel;
 import com.lpogifr.paymybuddy.service.AccountService;
@@ -61,10 +62,11 @@ public class TransfertController {
     sendersService.update(senderModel.getId(), senderModel);
     return "redirect:/index";
   }
-  /*
-  @RequestMapping(value = "/register/createAccount", method = RequestMethod.POST)
-  public String register(Model model, @ModelAttribute RegisterForm registerForm) {
 
+  @RequestMapping(value = "/registerNewAccount", method = RequestMethod.POST)
+  public String register(Model model, @ModelAttribute RegisterForm registerForm) {
+    final var newAccount = accountService.createNewAccount();
+    sendersService.createSender(registerForm, newAccount);
     return "redirect:/index";
-  }*/
+  }
 }
