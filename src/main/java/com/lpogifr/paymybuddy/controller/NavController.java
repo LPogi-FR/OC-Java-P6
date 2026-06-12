@@ -25,6 +25,8 @@ public class NavController {
   @GetMapping("/index")
   public String index(Model model, HttpSession session) {
     session.setAttribute("Sender", senderModel);
+    model.addAttribute("sender", senderModel);
+
     return "index";
   }
 

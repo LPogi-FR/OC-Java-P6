@@ -43,7 +43,7 @@
             <label> Balance :</label>
             <label th:text="${sender.account.balance}"> </label>
             <br>
-            <label> receiverList :</label>
+            <label> List of Receiver :</label>
             <div th:each="receiver:${sender.receiverList}">
                 <label th:text="${receiver.name}"> </label>
             </div>

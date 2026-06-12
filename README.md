@@ -24,10 +24,6 @@ Le fichier data.sql permet d'alimenter la DB au démarage de l'application.
 ### IDE (Environnement de développent intégré)
 Enfin, vous devez avoir un IDE, j'utilise dans mon cas Intellij.
 
-## Test
-````bash
-mvn clean verify
-````
 ## Run
 ````bash
 mvn spring-boot:run

@@ -57,16 +57,15 @@ public class TransfertController {
     SenderModel senderModel = assembler.fromEntityToModel(((SenderEntity) userDetails));
 
     senderModel =
-      sendersService.addreceiver(senderModel.getId(), sendersService.findByEmail(receiverForm.getEmail()).getId());
-
+      sendersService.addReceiver(senderModel.getId(), sendersService.findByEmail(receiverForm.getEmail()).getId());
+    ((SenderEntity) userDetails).setReceiverList(assembler.fromModelToEntity(senderModel).getReceiverList());
     sendersService.update(senderModel.getId(), senderModel);
     return "redirect:/index";
   }
 
   @RequestMapping(value = "/registerNewAccount", method = RequestMethod.POST)
   public String register(Model model, @ModelAttribute RegisterForm registerForm) {
-    final var newAccount = accountService.createNewAccount();
-    sendersService.createSender(registerForm, newAccount);
+    sendersService.createSender(registerForm, accountService.createNewAccount());
     return "redirect:/index";
   }
 }

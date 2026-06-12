@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Pay My Buddy Application</title>
-    <link href="../static/style/main.css" rel="stylesheet" data-th-href="@{/style/main.css}"/>
+    <link href="/static/style/main.css" rel="stylesheet" data-th-href="@{/style/main.css}"/>
     <script th:src="@{/resources/static/js/script.js}"></script>
 </head>
 <body>
-<div th:fragment="content">
+<div class="form" th:fragment="content">
     <form name="f" th:action="@{/login}" method="post">
         <fieldset>
             <legend>Please Login</legend>

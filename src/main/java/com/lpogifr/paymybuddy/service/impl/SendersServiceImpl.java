@@ -75,7 +75,7 @@ public class SendersServiceImpl implements SendersService {
   }
 
   @Override
-  public SenderModel addreceiver(Long id, Long receiverId) {
+  public SenderModel addReceiver(Long id, Long receiverId) {
     Optional<SenderEntity> response = null;
 
     SenderEntity senderEntity = repository.findById(id).orElse(null);
@@ -108,6 +108,6 @@ public class SendersServiceImpl implements SendersService {
     senderModel.setPassword(registerForm.getPassword());
     senderModel.setAccount(newAccount);
 
-    save(senderModel);
+    this.save(senderModel);
   }
 }

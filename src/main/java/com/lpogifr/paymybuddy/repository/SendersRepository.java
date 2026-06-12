@@ -20,7 +20,7 @@ public interface SendersRepository extends JpaRepository<SenderEntity, Long> {
   SenderEntity findByName(String name);
 
   @Query(
-    value = "select * from SENDERS where id not in (select receiver_id from receiver where sender_id = ?1) AND id <> ?1",
+    value = "select * from senders where id not in (select receiver_id from receiver where sender_id = ?1) AND id <> ?1",
     nativeQuery = true
   )
   List<SenderEntity> findOtheSender(Long senderId);

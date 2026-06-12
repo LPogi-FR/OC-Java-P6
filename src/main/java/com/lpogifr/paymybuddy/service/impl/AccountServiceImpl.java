@@ -7,7 +7,6 @@ import com.lpogifr.paymybuddy.repository.AccountRepository;
 import com.lpogifr.paymybuddy.service.AccountService;
 import java.util.List;
 import java.util.Optional;
-import javax.swing.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -69,7 +68,7 @@ public class AccountServiceImpl implements AccountService {
   public AccountModel createNewAccount() {
     AccountModel newAccount = new AccountModel();
     newAccount.setBalance(300.0);
-    save(newAccount);
+
     return newAccount;
   }
 }

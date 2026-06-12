@@ -20,5 +20,7 @@ public class SenderModel {
 
   private List<SenderModel> receiverList;
 
+  private List<SenderModel> senderList;
+
   private String name;
 }

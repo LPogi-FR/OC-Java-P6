@@ -63,7 +63,7 @@ public class SendersController {
     if (sendersService.findById(id) == null) {
       return ResponseEntity.notFound().build();
     }
-    final var response = sendersService.addreceiver(id, receiverId);
+    final var response = sendersService.addReceiver(id, receiverId);
     //find receiver(sender) by id
     //add receiver to sender
 

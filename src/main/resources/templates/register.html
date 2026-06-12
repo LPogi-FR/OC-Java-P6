@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Pay My Buddy Application</title>
-    <link href="../static/style/main.css" rel="stylesheet" data-th-href="@{/style/main.css}"/>
+    <link href="../../static/style/main.css" rel="stylesheet" data-th-href="@{/style/main.css}"/>
     <script th:src="@{/resources/static/js/script.js}"></script>
 </head>
 <body>
 
-<div>
-    <div align="center" class="form">
-
+<div align="center">
+    <div  class="form">
         <h1> Register Form</h1>
         <form method="post" th:action="@{/transfert/registerNewAccount}" th:object="${registerForm}">
             <input id="email" placeholder="Enter Email" required type="text" th:field="*{email}">
@@ -22,10 +21,8 @@
             <input type="submit" value="Register">
             <br>
         </form>
-
     </div>
-
-
+    <br>
 </div>
 
 

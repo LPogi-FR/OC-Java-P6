@@ -23,7 +23,7 @@ public interface SendersService {
 
   SenderModel update(Long id, SenderModel updatedSender);
 
-  SenderModel addreceiver(Long id, Long receiverId);
+  SenderModel addReceiver(Long id, Long receiverId);
 
   List<SenderModel> findOtherUSers(Long senderId);
 

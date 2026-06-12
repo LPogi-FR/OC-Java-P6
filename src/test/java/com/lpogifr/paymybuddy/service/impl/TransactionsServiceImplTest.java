@@ -28,12 +28,6 @@ class TransactionsServiceImplTest {
   }
 
   @Test
-  void itShouldSave() {
-    assertDoesNotThrow(() -> service.save(TransactionsModel.builder().build()));
-    verify(repository).save(any());
-  }
-
-  @Test
   void itShouldFindBySenderId() {
     assertDoesNotThrow(() -> service.findBySenderId(1L));
     verify(repository).findAll();

@@ -11,7 +11,6 @@ import com.lpogifr.paymybuddy.repository.TransactionsRepository;
 import com.lpogifr.paymybuddy.service.AccountService;
 import com.lpogifr.paymybuddy.service.SendersService;
 import com.lpogifr.paymybuddy.service.TransactionsService;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;

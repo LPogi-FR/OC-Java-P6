@@ -24,7 +24,7 @@ public class ReceiverAssembler implements IAssembler<ReceiverEntity, SenderModel
     if (entity == null) {
       return null;
     }
-    return SenderModel.builder().id(entity.getSender().getId()).name(entity.getSender().getName()).build();
+    return SenderModel.builder().id(entity.getReceiver().getId()).name(entity.getReceiver().getName()).build();
   }
 
   @Override

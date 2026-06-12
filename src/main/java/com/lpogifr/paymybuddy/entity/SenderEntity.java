@@ -32,8 +32,11 @@ public class SenderEntity implements UserDetails {
   @JoinColumn(name = "account_id", referencedColumnName = "id")
   private AccountEntity account;
 
-  @OneToMany(mappedBy = "receiver", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "sender", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private List<ReceiverEntity> receiverList;
+
+  @OneToMany(mappedBy = "receiver", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  private List<ReceiverEntity> senderList;
 
   @Column(name = "name")
   private String name;
