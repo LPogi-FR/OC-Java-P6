@@ -1,23 +1,20 @@
 package com.lpogifr.paymybuddy.controller;
 
-import com.lpogifr.paymybuddy.assembler.UserAssembler;
-import com.lpogifr.paymybuddy.entity.UserEntity;
-import com.lpogifr.paymybuddy.front.form.NewFriendForm;
+import com.lpogifr.paymybuddy.assembler.SenderAssembler;
+import com.lpogifr.paymybuddy.entity.SenderEntity;
+import com.lpogifr.paymybuddy.front.form.NewreceiverForm;
 import com.lpogifr.paymybuddy.front.form.RegisterForm;
 import com.lpogifr.paymybuddy.front.form.TransactionForm;
-import com.lpogifr.paymybuddy.model.TransactionsModel;
-import com.lpogifr.paymybuddy.model.UserModel;
-import com.lpogifr.paymybuddy.service.BankAccountService;
+import com.lpogifr.paymybuddy.model.SenderModel;
+import com.lpogifr.paymybuddy.service.AccountService;
+import com.lpogifr.paymybuddy.service.SendersService;
 import com.lpogifr.paymybuddy.service.TransactionsService;
-import com.lpogifr.paymybuddy.service.UsersService;
 import jakarta.servlet.http.HttpSession;
-import java.security.Principal;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.Banner;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,10 +26,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class TransfertController {
 
   private final TransactionsService transactionsService;
-  private final BankAccountService bankAccountService;
-  private final UsersService usersService;
-  private final UserAssembler assembler;
+  private final AccountService accountService;
+  private final SendersService sendersService;
+  private final SenderAssembler assembler;
 
+  @Transactional
   @RequestMapping(value = "/", method = RequestMethod.POST)
   public String createTransfert(
     Model model,
@@ -40,36 +38,34 @@ public class TransfertController {
     HttpSession session,
     @AuthenticationPrincipal UserDetails userDetails
   ) {
-    UserModel userModel = assembler.fromEntityToModel(((UserEntity) userDetails));
-    final var moneyToRecieve = bankAccountService.sendMoney(userModel.getBankAccount(), transactionForm.getAmount());
-    bankAccountService.receivceMoney(
-      usersService.findByName(transactionForm.getFriend1()).getBankAccount(),
-      moneyToRecieve
-    );
-    UserModel friendModel = usersService.findByName(transactionForm.getFriend1());
-    final var response = TransactionsModel
-      .builder()
-      .user(userModel)
-      .friend(friendModel)
-      .execTime(LocalDateTime.now())
-      .amount(transactionForm.getAmount())
-      .description(transactionForm.getDescription())
-      .build();
-    transactionsService.save(response);
+    SenderModel senderModel = assembler.fromEntityToModel(((SenderEntity) userDetails));
+    SenderModel receiverModel = sendersService.findByName(transactionForm.getReceiverName());
+    transactionForm.setSenderId(senderModel.getId());
+    transactionForm.setReceiverId(receiverModel.getId());
+    transactionsService.createNewTransaction(transactionForm);
+
     return "redirect:/index";
   }
 
-  @RequestMapping(value = "/newFriend", method = RequestMethod.POST)
-  public String addFriend(Model model, @ModelAttribute NewFriendForm friendForm, HttpSession session) {
-    UserModel userModel = (UserModel) session.getAttribute("userModel");
+  @RequestMapping(value = "/newreceiver", method = RequestMethod.POST)
+  public String addreceiver(
+    Model model,
+    @ModelAttribute NewreceiverForm receiverForm,
+    HttpSession session,
+    @AuthenticationPrincipal UserDetails userDetails
+  ) {
+    SenderModel senderModel = assembler.fromEntityToModel(((SenderEntity) userDetails));
 
-    usersService.addFriend(1L, usersService.findByEmail(friendForm.getEmail()).getId());
+    senderModel =
+      sendersService.addReceiver(senderModel.getId(), sendersService.findByEmail(receiverForm.getEmail()).getId());
+    ((SenderEntity) userDetails).setReceiverList(assembler.fromModelToEntity(senderModel).getReceiverList());
+    sendersService.update(senderModel.getId(), senderModel);
     return "redirect:/index";
   }
-  /*
-  @RequestMapping(value = "/register/createAccount", method = RequestMethod.POST)
+
+  @RequestMapping(value = "/registerNewAccount", method = RequestMethod.POST)
   public String register(Model model, @ModelAttribute RegisterForm registerForm) {
-
+    sendersService.createSender(registerForm, accountService.createNewAccount());
     return "redirect:/index";
-  }*/
+  }
 }

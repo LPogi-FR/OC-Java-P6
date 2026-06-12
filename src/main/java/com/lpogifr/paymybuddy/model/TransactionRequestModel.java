@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class TransactionRequestModel {
 
-  private Long userId;
-  private Long friendId;
+  private Long senderId;
+  private Long receiverId;
   private double amount;
 }

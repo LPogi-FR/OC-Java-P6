@@ -11,7 +11,7 @@ import org.springframework.util.CollectionUtils;
 @AllArgsConstructor
 public class TransactionsAssembler implements IAssembler<TransactionsEntity, TransactionsModel> {
 
-  private UserAssembler userAssembler;
+  private SenderAssembler senderAssembler;
 
   @Override
   public TransactionsEntity fromModelToEntity(TransactionsModel model) {
@@ -21,8 +21,8 @@ public class TransactionsAssembler implements IAssembler<TransactionsEntity, Tra
     return TransactionsEntity
       .builder()
       .id(model.getId())
-      .user((userAssembler.fromModelToEntity(model.getUser())))
-      .friend((userAssembler.fromModelToEntity(model.getFriend())))
+      .sender((senderAssembler.fromModelToEntity(model.getSender())))
+      .receiver((senderAssembler.fromModelToEntity(model.getReceiver())))
       .amount(model.getAmount())
       .execTime(model.getExecTime())
       .description(model.getDescription())
@@ -37,8 +37,8 @@ public class TransactionsAssembler implements IAssembler<TransactionsEntity, Tra
     return TransactionsModel
       .builder()
       .id(entity.getId())
-      .user(userAssembler.fromEntityToModel(entity.getUser()))
-      .friend(userAssembler.fromEntityToModel(entity.getFriend()))
+      .sender(senderAssembler.fromEntityToModel(entity.getSender()))
+      .receiver(senderAssembler.fromEntityToModel(entity.getReceiver()))
       .amount(entity.getAmount())
       .execTime(entity.getExecTime())
       .description(entity.getDescription())

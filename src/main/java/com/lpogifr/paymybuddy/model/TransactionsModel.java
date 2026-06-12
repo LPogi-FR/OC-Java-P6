@@ -1,6 +1,5 @@
 package com.lpogifr.paymybuddy.model;
 
-import jakarta.persistence.Entity;
 import java.time.LocalDateTime;
 import lombok.*;
 
@@ -13,9 +12,9 @@ public class TransactionsModel {
 
   private Long id;
 
-  private UserModel user;
+  private SenderModel sender;
 
-  private UserModel friend;
+  private SenderModel receiver;
 
   private double amount;
 

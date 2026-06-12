@@ -1,12 +1,12 @@
 package com.lpogifr.paymybuddy.controller;
 
 import com.lpogifr.paymybuddy.assembler.TransactionsAssembler;
+import com.lpogifr.paymybuddy.model.SenderModel;
 import com.lpogifr.paymybuddy.model.TransactionRequestModel;
 import com.lpogifr.paymybuddy.model.TransactionsModel;
-import com.lpogifr.paymybuddy.model.UserModel;
-import com.lpogifr.paymybuddy.service.BankAccountService;
+import com.lpogifr.paymybuddy.service.AccountService;
+import com.lpogifr.paymybuddy.service.SendersService;
 import com.lpogifr.paymybuddy.service.TransactionsService;
-import com.lpogifr.paymybuddy.service.UsersService;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -25,8 +25,8 @@ public class TransactionController {
 
   private TransactionsAssembler transactionsAssembler;
   private TransactionsService transactionsService;
-  private BankAccountService bankAccountService;
-  private UsersService usersService;
+  private AccountService accountService;
+  private SendersService sendersService;
 
   @GetMapping("/transactions")
   public ResponseEntity<List<TransactionsModel>> findAllTransactions() {
@@ -39,18 +39,14 @@ public class TransactionController {
     if (model == null) {
       return ResponseEntity.badRequest().build();
     }
-    //!! null pointer verifié si bankaccount est trouvé
-    final var moneyToRecieve = bankAccountService.sendMoney(
-      usersService.findById(model.getUserId()).getBankAccount(),
-      model.getAmount()
-    );
-    bankAccountService.receivceMoney(usersService.findById(model.getFriendId()).getBankAccount(), moneyToRecieve);
-    UserModel userModel = usersService.findById(model.getUserId());
-    UserModel friendModel = usersService.findById(model.getFriendId());
+    accountService.sendMoney(sendersService.findById(model.getSenderId()).getAccount(), model.getAmount());
+    accountService.receivceMoney(sendersService.findById(model.getReceiverId()).getAccount(), model.getAmount());
+    SenderModel senderModel = sendersService.findById(model.getSenderId());
+    SenderModel receiverModel = sendersService.findById(model.getReceiverId());
     final var response = TransactionsModel
       .builder()
-      .user(userModel)
-      .friend(friendModel)
+      .sender(senderModel)
+      .receiver(receiverModel)
       .execTime(LocalDateTime.now())
       .amount(model.getAmount())
       .build();

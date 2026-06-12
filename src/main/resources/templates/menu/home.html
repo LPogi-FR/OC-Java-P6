@@ -18,10 +18,10 @@
             <div class="top-nav"><a class="nav-link" href="index">Pay My Buddy</a></div>
 
             <li class="nav-item"><a class="nav-link" href="home">Home</a>
-            <li class="nav-item"><a class="nav-link" href="transfert">Transfer</a>
+            <li class="nav-item"><a class="nav-link" href="transfert">Add Relation</a>
             <li class="nav-item"><a class="nav-link" href="profile">Profile</a>
             <li class="nav-item"><a class="nav-link" href="contact">Contact</a>
-            <li class="nav-item"><a class="nav-link" href="logout">Log Off</a>
+            <li class="nav-item"><a class="nav-link" href="logout">Log Out</a>
 
         </ul>
 
@@ -30,20 +30,40 @@
 
 </div>
 <p> Balance</p>
-<p th:text="${bankAccount.balance}"></p>
+<p th:text="${account.balance}"></p>
+
+<div align="center">
+    <div class="form">
+        <h1>Transfert money form</h1>
+        <form method="post" th:action="@{/transfert/}" th:object="${transactionForm}">
+            <label>Transfert description :</label>
+            <input id="description" PLACEHOLDER="Enter description" required type="text" th:field="*{description}"/>
+            <br>
+            <label>Amount to send :</label>
+            <input id="amount" PLACEHOLDER="Enter Amount" required type="number" th:field="*{amount}"/>
+            <br>
+            <label>Select receiver : </label>
+
+            <select th:field="*{receiverName}" id="receiver">
+                <option th:each="receiver:${sender.receiverList}" th:value="${receiver.name}" th:text="${receiver.name}"></option>
+            </select>
+            <br>
+            <input type="submit" value="Transfert money">
+        </form>
+    </div>
+    <br>
 </div>
 
-</div>
 <table align="center">
     <tr>
         <th scope="col"> Description</th>
         <th scope="col"> Amount</th>
-        <th scope="col"> Friend Name</th>
+        <th scope="col"> receiver Name</th>
     </tr>
     <tr th:each="transactions:${transactionList}">
         <td th:text="${transactions.description}"></td>
         <td th:text="${transactions.amount}"></td>
-        <td th:text="${transactions.friend.name}"></td>
+        <td th:text="${transactions.receiver.name}"></td>
     </tr>
 </table>
 

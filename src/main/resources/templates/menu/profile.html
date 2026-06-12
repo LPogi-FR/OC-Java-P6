@@ -18,10 +18,10 @@
             <div class="top-nav"><a class="nav-link" href="index">Pay My Buddy</a></div>
 
             <li class="nav-item"><a class="nav-link" href="home">Home</a>
-            <li class="nav-item"><a class="nav-link" href="transfert">Transfer</a>
+            <li class="nav-item"><a class="nav-link" href="transfert">Add Relation</a>
             <li class="nav-item"><a class="nav-link" href="profile">Profile</a>
             <li class="nav-item"><a class="nav-link" href="contact">Contact</a>
-            <li class="nav-item"><a class="nav-link" href="logout">Log Off</a>
+            <li class="nav-item"><a class="nav-link" href="logout">Log Out</a>
 
         </ul>
 
@@ -35,23 +35,17 @@
         <h1 align="center">My Profile</h1>
         <div align="center">
             <label> Name :</label>
-            <label th:text="${user.name}"> </label>
+            <label th:text="${sender.name}"> </label>
             <br>
             <label> Email :</label>
-            <label th:text="${user.email}"> </label>
-            <br>
-            <label> Bic :</label>
-            <label th:text="${user.bankAccount.bic}"> </label>
-            <br>
-            <label> Iban :</label>
-            <label th:text="${user.bankAccount.iban}"> </label>
+            <label th:text="${sender.email}"> </label>
             <br>
             <label> Balance :</label>
-            <label th:text="${user.bankAccount.balance}"> </label>
+            <label th:text="${sender.account.balance}"> </label>
             <br>
-            <label> FriendList :</label>
-            <div th:each="friend:${user.friendList}">
-                <label th:text="${friend.name}"> </label>
+            <label> List of Receiver :</label>
+            <div th:each="receiver:${sender.receiverList}">
+                <label th:text="${receiver.name}"> </label>
             </div>
             <br>
         </div>
