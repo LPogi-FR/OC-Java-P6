@@ -16,5 +16,5 @@ public class ReceiverModel {
 
   private ReceiverPrimaryKey id;
 
-  private String name;
+  private String email;
 }

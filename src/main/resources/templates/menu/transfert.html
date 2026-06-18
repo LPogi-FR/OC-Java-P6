@@ -34,7 +34,7 @@
         <form method="post" th:action="@{/transfert/newreceiver}" th:object="${receiverForm}">
             <label> Add receiver</label>
             <select th:field="*{email}" >
-                <option th:each="receiver:${otherSenders}" th:value="${receiver.email}" th:text="${receiver.name}"></option>
+                <option th:each="receiver:${otherSenders}" th:value="${receiver.email}" th:text="${receiver.email}"></option>
             </select>
             <br>
             <input type="submit" value="Add Relation">

@@ -11,5 +11,5 @@ public class TransactionForm {
   private double amount;
   private Long senderId;
   private Long receiverId;
-  private String receiverName;
+  private String receiverEmail;
 }

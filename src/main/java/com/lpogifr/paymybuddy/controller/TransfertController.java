@@ -9,7 +9,6 @@ import com.lpogifr.paymybuddy.model.SenderModel;
 import com.lpogifr.paymybuddy.service.AccountService;
 import com.lpogifr.paymybuddy.service.SendersService;
 import com.lpogifr.paymybuddy.service.TransactionsService;
-import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,39 +32,35 @@ public class TransfertController {
   @Transactional
   @RequestMapping(value = "/", method = RequestMethod.POST)
   public String createTransfert(
-    Model model,
     @ModelAttribute TransactionForm transactionForm,
-    HttpSession session,
-    @AuthenticationPrincipal UserDetails userDetails
+    @AuthenticationPrincipal UserDetails userDetails,
+    Model model
   ) {
     SenderModel senderModel = assembler.fromEntityToModel(((SenderEntity) userDetails));
-    SenderModel receiverModel = sendersService.findByName(transactionForm.getReceiverName());
+    SenderModel receiverModel = sendersService.findByEmail(transactionForm.getReceiverEmail());
     transactionForm.setSenderId(senderModel.getId());
     transactionForm.setReceiverId(receiverModel.getId());
     transactionsService.createNewTransaction(transactionForm);
 
-    return "redirect:/index";
+    return "redirect:/home";
   }
 
   @RequestMapping(value = "/newreceiver", method = RequestMethod.POST)
   public String addreceiver(
-    Model model,
     @ModelAttribute NewreceiverForm receiverForm,
-    HttpSession session,
     @AuthenticationPrincipal UserDetails userDetails
   ) {
     SenderModel senderModel = assembler.fromEntityToModel(((SenderEntity) userDetails));
-
     senderModel =
       sendersService.addReceiver(senderModel.getId(), sendersService.findByEmail(receiverForm.getEmail()).getId());
     ((SenderEntity) userDetails).setReceiverList(assembler.fromModelToEntity(senderModel).getReceiverList());
     sendersService.update(senderModel.getId(), senderModel);
-    return "redirect:/index";
+    return "redirect:/home";
   }
 
   @RequestMapping(value = "/registerNewAccount", method = RequestMethod.POST)
-  public String register(Model model, @ModelAttribute RegisterForm registerForm) {
+  public String register(@ModelAttribute RegisterForm registerForm) {
     sendersService.createSender(registerForm, accountService.createNewAccount());
-    return "redirect:/index";
+    return "redirect:/login";
   }
 }

@@ -44,8 +44,8 @@
             <br>
             <label>Select receiver : </label>
 
-            <select th:field="*{receiverName}" id="receiver">
-                <option th:each="receiver:${sender.receiverList}" th:value="${receiver.name}" th:text="${receiver.name}"></option>
+            <select th:field="*{receiverEmail}" id="receiver">
+                <option th:each="receiver:${sender.receiverList}" th:value="${receiver.email}" th:text="${receiver.email}"></option>
             </select>
             <br>
             <input type="submit" value="Transfert money">
@@ -58,12 +58,12 @@
     <tr>
         <th scope="col"> Description</th>
         <th scope="col"> Amount</th>
-        <th scope="col"> receiver Name</th>
+        <th scope="col"> receiver Email</th>
     </tr>
     <tr th:each="transactions:${transactionList}">
         <td th:text="${transactions.description}"></td>
         <td th:text="${transactions.amount}"></td>
-        <td th:text="${transactions.receiver.name}"></td>
+        <td th:text="${transactions.receiver.email}"></td>
     </tr>
 </table>
 

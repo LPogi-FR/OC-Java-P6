@@ -12,6 +12,9 @@
     <div  class="form">
         <h1> Register Form</h1>
         <form method="post" th:action="@{/transfert/registerNewAccount}" th:object="${registerForm}">
+            <div th:if="${param.error}" class="alert alert-error">
+               Email already exist in DB
+            </div>
             <input id="email" placeholder="Enter Email" required type="text" th:field="*{email}">
             <br>
             <input id="password" placeholder="Enter Password" required type="text" th:field="*{password}">

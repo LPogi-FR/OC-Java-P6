@@ -51,7 +51,7 @@ public class TransactionsServiceImpl implements TransactionsService {
     SenderModel sender = sendersService.findById(transactionForm.getSenderId());
     SenderModel receiver = sendersService.findById(transactionForm.getReceiverId());
 
-    if (transactionForm.getAmount() == 0) {
+    if (transactionForm.getAmount() <= 0) {
       throw new InvalidAmountException("Transaction amount invalid");
     } else if (sender.getAccount().getBalance() - transactionForm.getAmount() < 0) {
       throw new FundNotEnoughException("Not enough fund in account");
